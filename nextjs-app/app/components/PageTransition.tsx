@@ -10,12 +10,12 @@ export default function PageTransition({ children }: { children: React.ReactNode
   const [isAnimating, setIsAnimating] = useState(false);
 
   const handleNavigate = (url: string) => {
-    if (isAnimating) return; // Prevent multiple clicks
+    if (isAnimating) return;
     setIsAnimating(true);
 
     setTimeout(() => {
       router.push(url);
-    }, 900); // Transition duration before navigation
+    }, 900);
   };
 
   useEffect(() => {
@@ -36,7 +36,6 @@ export default function PageTransition({ children }: { children: React.ReactNode
         </motion.div>
       </AnimatePresence>
 
-      {/* Fullscreen Overlay */}
       <AnimatePresence>
         {isAnimating && (
           <motion.div

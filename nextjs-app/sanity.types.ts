@@ -185,6 +185,7 @@ export type IntroHero = {
     _key: string;
   }>;
   logo?: string;
+  filter?: boolean;
 };
 
 export type FeatureCard = {
@@ -1413,6 +1414,7 @@ export type GetPageQueryResult = {
       _key: string;
     }>;
     logo?: string;
+    filter?: boolean;
   } | {
     _key: string;
     _type: "mainHero";

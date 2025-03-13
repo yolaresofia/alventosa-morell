@@ -17,6 +17,7 @@ export default function IntroHero({ block }: IntroHeroProps) {
 
   const desktopImages = useMemo(() => block.desktopBackgroundImages || [], [block.desktopBackgroundImages]);
   const mobileImages = useMemo(() => block.mobileBackgroundImages || [], [block.mobileBackgroundImages]);
+  const isFilterActive = block.filter;
 
   useEffect(() => {
     const handleResize = () => {
@@ -56,7 +57,6 @@ export default function IntroHero({ block }: IntroHeroProps) {
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [isMobile, desktopImages]);
-
 
   const handleClick = useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
@@ -108,7 +108,8 @@ export default function IntroHero({ block }: IntroHeroProps) {
       {block.logo && (
         <div
           id="hero-logo"
-          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 text-white text-5xl font-bold cursor-pointer"
+          style={{ backdropFilter: isFilterActive ? "blur(2px)" : "none" }}
+          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 text-white text-5xl font-bold cursor-pointer p-3"
           onClick={() => router.push("/about")}
         >
           {block.logo}

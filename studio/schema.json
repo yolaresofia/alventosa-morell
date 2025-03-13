@@ -1215,6 +1215,13 @@
             "type": "string"
           },
           "optional": true
+        },
+        "filter": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "boolean"
+          },
+          "optional": true
         }
       }
     }

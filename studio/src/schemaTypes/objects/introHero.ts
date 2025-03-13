@@ -1,5 +1,5 @@
-import { defineField, defineType } from 'sanity'
-import { TextIcon } from '@sanity/icons'
+import {defineField, defineType} from 'sanity'
+import {TextIcon} from '@sanity/icons'
 
 export const introHero = defineType({
   name: 'introHero',
@@ -32,7 +32,7 @@ export const introHero = defineType({
               title: 'altText',
               media: 'image',
             },
-            prepare({ title, media }) {
+            prepare({title, media}) {
               return {
                 title: title || 'Sin texto alternativo',
                 subtitle: 'Imagen de fondo (Escritorio)',
@@ -68,7 +68,7 @@ export const introHero = defineType({
               title: 'altText',
               media: 'image',
             },
-            prepare({ title, media }) {
+            prepare({title, media}) {
               return {
                 title: title || 'Sin texto alternativo',
                 subtitle: 'Imagen de fondo (Móvil)',
@@ -84,12 +84,19 @@ export const introHero = defineType({
       title: 'Logo',
       type: 'string',
     }),
+    defineField({
+      name: 'filter',
+      title: 'Activar filtro',
+      type: 'boolean',
+      description: 'Activa o desactiva el filtro de fondo del logo',
+      initialValue: false,
+    }),
   ],
   preview: {
     select: {
       backgroundImage: 'desktopBackgroundImages.0.image',
     },
-    prepare({ backgroundImage}) {
+    prepare({backgroundImage}) {
       return {
         title: 'Intro Hero',
         media: backgroundImage || TextIcon,
