@@ -40,7 +40,7 @@ export default function Header({ block }: HeaderProps) {
         <MobileMenu block={block} onClose={toggleMenu} onOpenModal={handleOpenModal} />
       )}
 
-      <header className="fixed top-0 left-0 lg:flex hidden items-center text-base justify-between px-10 py-8 bg-transparent z-50 w-full font-teachers transition-colors duration-300">
+      <header className="fixed top-0 left-0 lg:flex hidden items-center text-base justify-between px-10 py-8 bg-transparent z-50 w-full transition-colors duration-300">
         <DynamicHeader />
 
         <div className="flex w-1/2">

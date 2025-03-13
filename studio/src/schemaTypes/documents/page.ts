@@ -54,6 +54,8 @@ export const page = defineType({
         {type: 'imageTextBlock'},
         {type: 'infoCard'},
         {type: 'featureCard'},
+        {type: 'introHero'},
+        {type: 'about'},
       ],
       options: {
         insertMenu: {

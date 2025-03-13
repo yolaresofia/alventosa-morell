@@ -2,3 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+    font-family: "Soehne Buch";
+    src: url("/fonts/soehne-buch.woff2") format("woff2");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }

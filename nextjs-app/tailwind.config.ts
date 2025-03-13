@@ -100,8 +100,7 @@ export default {
         },
       },
       fontFamily: {
-        sans: ["var(--font-inter)"],
-        teachers: ["Teachers", "serif"],
+        soehne: ["Soehne Buch", "sans-serif"],
       },
     },
   },

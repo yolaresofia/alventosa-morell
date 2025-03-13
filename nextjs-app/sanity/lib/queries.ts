@@ -37,7 +37,7 @@ export const getPageQuery = defineQuery(`
         ...,
         ${linkFields},
       },
-      _type == "mainHero" => {
+      _type == "introHero" => {
         ...
       }
     },

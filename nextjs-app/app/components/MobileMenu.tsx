@@ -47,7 +47,7 @@ export default function MobileMenu({
 
   return (
     <div
-      className={`fixed inset-0 bg-[#F8F6F2] flex flex-col justify-between p-8 z-50 font-teachers 
+      className={`fixed inset-0 bg-[#F8F6F2] flex flex-col justify-between p-8 z-50
         transition-transform duration-300 ${isAnimating && !isExiting ? "translate-x-0" : "translate-x-full"}`}
     >
       <div className="flex justify-between items-start">

@@ -68,6 +68,41 @@ export type Geopoint = {
   alt?: number
 }
 
+export type IntroHero = {
+  _type: 'introHero'
+  desktopBackgroundImages?: Array<{
+    image?: {
+      asset?: {
+        _ref: string
+        _type: 'reference'
+        _weak?: boolean
+        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+      }
+      hotspot?: SanityImageHotspot
+      crop?: SanityImageCrop
+      _type: 'image'
+    }
+    altText?: string
+    _key: string
+  }>
+  mobileBackgroundImages?: Array<{
+    image?: {
+      asset?: {
+        _ref: string
+        _type: 'reference'
+        _weak?: boolean
+        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+      }
+      hotspot?: SanityImageHotspot
+      crop?: SanityImageCrop
+      _type: 'image'
+    }
+    altText?: string
+    _key: string
+  }>
+  logo?: string
+}
+
 export type FeatureCard = {
   _type: 'featureCard'
   theme?: 'darkTheme' | 'lightTheme'
@@ -107,6 +142,76 @@ export type FeatureCard = {
     | 80
     | 96
   paddingB?:
+    | 0
+    | 0.5
+    | 1
+    | 1.5
+    | 2
+    | 2.5
+    | 3
+    | 3.5
+    | 4
+    | 5
+    | 6
+    | 7
+    | 8
+    | 9
+    | 10
+    | 11
+    | 12
+    | 14
+    | 16
+    | 20
+    | 24
+    | 28
+    | 32
+    | 36
+    | 40
+    | 44
+    | 48
+    | 52
+    | 56
+    | 60
+    | 64
+    | 72
+    | 80
+    | 96
+  mobilePaddingT?:
+    | 0
+    | 0.5
+    | 1
+    | 1.5
+    | 2
+    | 2.5
+    | 3
+    | 3.5
+    | 4
+    | 5
+    | 6
+    | 7
+    | 8
+    | 9
+    | 10
+    | 11
+    | 12
+    | 14
+    | 16
+    | 20
+    | 24
+    | 28
+    | 32
+    | 36
+    | 40
+    | 44
+    | 48
+    | 52
+    | 56
+    | 60
+    | 64
+    | 72
+    | 80
+    | 96
+  mobilePaddingB?:
     | 0
     | 0.5
     | 1
@@ -237,6 +342,76 @@ export type InfoCard = {
     | 72
     | 80
     | 96
+  mobilePaddingT?:
+    | 0
+    | 0.5
+    | 1
+    | 1.5
+    | 2
+    | 2.5
+    | 3
+    | 3.5
+    | 4
+    | 5
+    | 6
+    | 7
+    | 8
+    | 9
+    | 10
+    | 11
+    | 12
+    | 14
+    | 16
+    | 20
+    | 24
+    | 28
+    | 32
+    | 36
+    | 40
+    | 44
+    | 48
+    | 52
+    | 56
+    | 60
+    | 64
+    | 72
+    | 80
+    | 96
+  mobilePaddingB?:
+    | 0
+    | 0.5
+    | 1
+    | 1.5
+    | 2
+    | 2.5
+    | 3
+    | 3.5
+    | 4
+    | 5
+    | 6
+    | 7
+    | 8
+    | 9
+    | 10
+    | 11
+    | 12
+    | 14
+    | 16
+    | 20
+    | 24
+    | 28
+    | 32
+    | 36
+    | 40
+    | 44
+    | 48
+    | 52
+    | 56
+    | 60
+    | 64
+    | 72
+    | 80
+    | 96
   theme?: 'darkTheme' | 'lightTheme'
   title?: string
   text?: Array<{
@@ -249,7 +424,8 @@ export type InfoCard = {
     style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'blockquote'
     listItem?: 'bullet' | 'number'
     markDefs?: Array<{
-      linkType?: 'href' | 'page' | 'navLink'
+      linkType?: 'href' | 'page'
+      urlTitle?: string
       href?: string
       page?: {
         _ref: string
@@ -257,7 +433,7 @@ export type InfoCard = {
         _weak?: boolean
         [internalGroqTypeReferenceTo]?: 'page'
       }
-      openInNewTab?: boolean
+      openType?: 'newTab' | 'modal'
       _type: 'link'
       _key: string
     }>
@@ -353,6 +529,76 @@ export type InfoWithCTA = {
     | 72
     | 80
     | 96
+  mobilePaddingT?:
+    | 0
+    | 0.5
+    | 1
+    | 1.5
+    | 2
+    | 2.5
+    | 3
+    | 3.5
+    | 4
+    | 5
+    | 6
+    | 7
+    | 8
+    | 9
+    | 10
+    | 11
+    | 12
+    | 14
+    | 16
+    | 20
+    | 24
+    | 28
+    | 32
+    | 36
+    | 40
+    | 44
+    | 48
+    | 52
+    | 56
+    | 60
+    | 64
+    | 72
+    | 80
+    | 96
+  mobilePaddingB?:
+    | 0
+    | 0.5
+    | 1
+    | 1.5
+    | 2
+    | 2.5
+    | 3
+    | 3.5
+    | 4
+    | 5
+    | 6
+    | 7
+    | 8
+    | 9
+    | 10
+    | 11
+    | 12
+    | 14
+    | 16
+    | 20
+    | 24
+    | 28
+    | 32
+    | 36
+    | 40
+    | 44
+    | 48
+    | 52
+    | 56
+    | 60
+    | 64
+    | 72
+    | 80
+    | 96
   firstColumnText: Array<{
     children?: Array<{
       marks?: Array<string>
@@ -363,7 +609,8 @@ export type InfoWithCTA = {
     style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'blockquote'
     listItem?: 'bullet' | 'number'
     markDefs?: Array<{
-      linkType?: 'href' | 'page' | 'navLink'
+      linkType?: 'href' | 'page'
+      urlTitle?: string
       href?: string
       page?: {
         _ref: string
@@ -371,7 +618,7 @@ export type InfoWithCTA = {
         _weak?: boolean
         [internalGroqTypeReferenceTo]?: 'page'
       }
-      openInNewTab?: boolean
+      openType?: 'newTab' | 'modal'
       _type: 'link'
       _key: string
     }>
@@ -389,7 +636,8 @@ export type InfoWithCTA = {
     style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'blockquote'
     listItem?: 'bullet' | 'number'
     markDefs?: Array<{
-      linkType?: 'href' | 'page' | 'navLink'
+      linkType?: 'href' | 'page'
+      urlTitle?: string
       href?: string
       page?: {
         _ref: string
@@ -397,7 +645,7 @@ export type InfoWithCTA = {
         _weak?: boolean
         [internalGroqTypeReferenceTo]?: 'page'
       }
-      openInNewTab?: boolean
+      openType?: 'newTab' | 'modal'
       _type: 'link'
       _key: string
     }>
@@ -453,7 +701,9 @@ export type MainHero = {
 export type ImageTextBlock = {
   _type: 'imageTextBlock'
   theme?: 'darkTheme' | 'lightTheme'
-  paddingT?:
+  paddingT?: 0 | 4 | 8 | 12 | 16 | 20 | 24 | 32 | 40 | 48 | 56 | 64 | 80 | 96
+  paddingB?: 0 | 4 | 8 | 12 | 16 | 20 | 24 | 32 | 40 | 48 | 56 | 64 | 80 | 96
+  mobilePaddingT?:
     | 0
     | 0.5
     | 1
@@ -488,7 +738,7 @@ export type ImageTextBlock = {
     | 72
     | 80
     | 96
-  paddingB?:
+  mobilePaddingB?:
     | 0
     | 0.5
     | 1
@@ -533,7 +783,8 @@ export type ImageTextBlock = {
     style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'blockquote'
     listItem?: 'bullet' | 'number'
     markDefs?: Array<{
-      linkType?: 'href' | 'page' | 'navLink'
+      linkType?: 'href' | 'page'
+      urlTitle?: string
       href?: string
       page?: {
         _ref: string
@@ -541,7 +792,7 @@ export type ImageTextBlock = {
         _weak?: boolean
         [internalGroqTypeReferenceTo]?: 'page'
       }
-      openInNewTab?: boolean
+      openType?: 'newTab' | 'modal'
       _type: 'link'
       _key: string
     }>
@@ -573,7 +824,63 @@ export type ImageTextBlock = {
     crop?: SanityImageCrop
     _type: 'image'
   }
-  layout?: 'leftImage' | 'topText' | 'leftTextImageIlustration' | 'rightImageNoText'
+  layout?: 'leftImage' | 'topText' | 'leftTextImageIlustration' | 'rightImageHoverText'
+  titleImage1?: string
+  textImage1?: Array<{
+    children?: Array<{
+      marks?: Array<string>
+      text?: string
+      _type: 'span'
+      _key: string
+    }>
+    style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'blockquote'
+    listItem?: 'bullet' | 'number'
+    markDefs?: Array<{
+      linkType?: 'href' | 'page'
+      urlTitle?: string
+      href?: string
+      page?: {
+        _ref: string
+        _type: 'reference'
+        _weak?: boolean
+        [internalGroqTypeReferenceTo]?: 'page'
+      }
+      openType?: 'newTab' | 'modal'
+      _type: 'link'
+      _key: string
+    }>
+    level?: number
+    _type: 'block'
+    _key: string
+  }>
+  titleImage2?: string
+  textImage2?: Array<{
+    children?: Array<{
+      marks?: Array<string>
+      text?: string
+      _type: 'span'
+      _key: string
+    }>
+    style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'blockquote'
+    listItem?: 'bullet' | 'number'
+    markDefs?: Array<{
+      linkType?: 'href' | 'page'
+      urlTitle?: string
+      href?: string
+      page?: {
+        _ref: string
+        _type: 'reference'
+        _weak?: boolean
+        [internalGroqTypeReferenceTo]?: 'page'
+      }
+      openType?: 'newTab' | 'modal'
+      _type: 'link'
+      _key: string
+    }>
+    level?: number
+    _type: 'block'
+    _key: string
+  }>
 }
 
 export type BlockContent = Array<{
@@ -586,7 +893,8 @@ export type BlockContent = Array<{
   style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'blockquote'
   listItem?: 'bullet' | 'number'
   markDefs?: Array<{
-    linkType?: 'href' | 'page' | 'navLink'
+    linkType?: 'href' | 'page'
+    urlTitle?: string
     href?: string
     page?: {
       _ref: string
@@ -594,7 +902,7 @@ export type BlockContent = Array<{
       _weak?: boolean
       [internalGroqTypeReferenceTo]?: 'page'
     }
-    openInNewTab?: boolean
+    openType?: 'newTab' | 'modal'
     _type: 'link'
     _key: string
   }>
@@ -719,12 +1027,15 @@ export type Page = {
     | ({
         _key: string
       } & FeatureCard)
+    | ({
+        _key: string
+      } & IntroHero)
   >
 }
 
 export type Link = {
   _type: 'link'
-  linkType?: 'href' | 'page' | 'navLink'
+  linkType?: 'href' | 'page'
   urlTitle?: string
   href?: string
   page?: {
@@ -733,8 +1044,7 @@ export type Link = {
     _weak?: boolean
     [internalGroqTypeReferenceTo]?: 'page'
   }
-  navLink?: string
-  openInNewTab?: boolean
+  openType?: 'newTab' | 'modal'
 }
 
 export type Slug = {
@@ -974,6 +1284,7 @@ export type AllSanitySchemaTypes =
   | SanityImageDimensions
   | SanityFileAsset
   | Geopoint
+  | IntroHero
   | FeatureCard
   | InfoCard
   | InfoWithCTA

@@ -68,6 +68,125 @@ export type Geopoint = {
   alt?: number;
 };
 
+export type About = {
+  _type: "about";
+  aboutText?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      linkType?: "href" | "page";
+      urlTitle?: string;
+      href?: string;
+      page?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "page";
+      };
+      openType?: "newTab" | "modal";
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }>;
+  contact?: {
+    email: string;
+    phone: string;
+  };
+  office?: {
+    address?: Array<{
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
+      listItem?: "bullet" | "number";
+      markDefs?: Array<{
+        linkType?: "href" | "page";
+        urlTitle?: string;
+        href?: string;
+        page?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "page";
+        };
+        openType?: "newTab" | "modal";
+        _type: "link";
+        _key: string;
+      }>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    }>;
+    addressUrl?: Link;
+  };
+  social?: {
+    instagram?: Link;
+    facebook?: Link;
+  };
+  team?: {
+    coFounders?: Array<{
+      name: string;
+      role: string;
+      _key: string;
+    }>;
+    teammates?: Array<{
+      name: string;
+      _key: string;
+    }>;
+    pastTeammates?: Array<{
+      name: string;
+      _key: string;
+    }>;
+  };
+};
+
+export type IntroHero = {
+  _type: "introHero";
+  desktopBackgroundImages?: Array<{
+    image?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+    altText?: string;
+    _key: string;
+  }>;
+  mobileBackgroundImages?: Array<{
+    image?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+    altText?: string;
+    _key: string;
+  }>;
+  logo?: string;
+};
+
 export type FeatureCard = {
   _type: "featureCard";
   theme?: "darkTheme" | "lightTheme";
@@ -117,7 +236,8 @@ export type InfoCard = {
     style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
     listItem?: "bullet" | "number";
     markDefs?: Array<{
-      linkType?: "href" | "page" | "navLink";
+      linkType?: "href" | "page";
+      urlTitle?: string;
       href?: string;
       page?: {
         _ref: string;
@@ -125,7 +245,7 @@ export type InfoCard = {
         _weak?: boolean;
         [internalGroqTypeReferenceTo]?: "page";
       };
-      openInNewTab?: boolean;
+      openType?: "newTab" | "modal";
       _type: "link";
       _key: string;
     }>;
@@ -165,7 +285,8 @@ export type InfoWithCTA = {
     style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
     listItem?: "bullet" | "number";
     markDefs?: Array<{
-      linkType?: "href" | "page" | "navLink";
+      linkType?: "href" | "page";
+      urlTitle?: string;
       href?: string;
       page?: {
         _ref: string;
@@ -173,7 +294,7 @@ export type InfoWithCTA = {
         _weak?: boolean;
         [internalGroqTypeReferenceTo]?: "page";
       };
-      openInNewTab?: boolean;
+      openType?: "newTab" | "modal";
       _type: "link";
       _key: string;
     }>;
@@ -191,7 +312,8 @@ export type InfoWithCTA = {
     style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
     listItem?: "bullet" | "number";
     markDefs?: Array<{
-      linkType?: "href" | "page" | "navLink";
+      linkType?: "href" | "page";
+      urlTitle?: string;
       href?: string;
       page?: {
         _ref: string;
@@ -199,7 +321,7 @@ export type InfoWithCTA = {
         _weak?: boolean;
         [internalGroqTypeReferenceTo]?: "page";
       };
-      openInNewTab?: boolean;
+      openType?: "newTab" | "modal";
       _type: "link";
       _key: string;
     }>;
@@ -257,6 +379,8 @@ export type ImageTextBlock = {
   theme?: "darkTheme" | "lightTheme";
   paddingT?: 0 | 4 | 8 | 12 | 16 | 20 | 24 | 32 | 40 | 48 | 56 | 64 | 80 | 96;
   paddingB?: 0 | 4 | 8 | 12 | 16 | 20 | 24 | 32 | 40 | 48 | 56 | 64 | 80 | 96;
+  mobilePaddingT?: 0 | 0.5 | 1 | 1.5 | 2 | 2.5 | 3 | 3.5 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 14 | 16 | 20 | 24 | 28 | 32 | 36 | 40 | 44 | 48 | 52 | 56 | 60 | 64 | 72 | 80 | 96;
+  mobilePaddingB?: 0 | 0.5 | 1 | 1.5 | 2 | 2.5 | 3 | 3.5 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 14 | 16 | 20 | 24 | 28 | 32 | 36 | 40 | 44 | 48 | 52 | 56 | 60 | 64 | 72 | 80 | 96;
   text?: Array<{
     children?: Array<{
       marks?: Array<string>;
@@ -267,7 +391,8 @@ export type ImageTextBlock = {
     style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
     listItem?: "bullet" | "number";
     markDefs?: Array<{
-      linkType?: "href" | "page" | "navLink";
+      linkType?: "href" | "page";
+      urlTitle?: string;
       href?: string;
       page?: {
         _ref: string;
@@ -275,7 +400,7 @@ export type ImageTextBlock = {
         _weak?: boolean;
         [internalGroqTypeReferenceTo]?: "page";
       };
-      openInNewTab?: boolean;
+      openType?: "newTab" | "modal";
       _type: "link";
       _key: string;
     }>;
@@ -319,7 +444,8 @@ export type ImageTextBlock = {
     style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
     listItem?: "bullet" | "number";
     markDefs?: Array<{
-      linkType?: "href" | "page" | "navLink";
+      linkType?: "href" | "page";
+      urlTitle?: string;
       href?: string;
       page?: {
         _ref: string;
@@ -327,7 +453,7 @@ export type ImageTextBlock = {
         _weak?: boolean;
         [internalGroqTypeReferenceTo]?: "page";
       };
-      openInNewTab?: boolean;
+      openType?: "newTab" | "modal";
       _type: "link";
       _key: string;
     }>;
@@ -346,7 +472,8 @@ export type ImageTextBlock = {
     style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
     listItem?: "bullet" | "number";
     markDefs?: Array<{
-      linkType?: "href" | "page" | "navLink";
+      linkType?: "href" | "page";
+      urlTitle?: string;
       href?: string;
       page?: {
         _ref: string;
@@ -354,7 +481,7 @@ export type ImageTextBlock = {
         _weak?: boolean;
         [internalGroqTypeReferenceTo]?: "page";
       };
-      openInNewTab?: boolean;
+      openType?: "newTab" | "modal";
       _type: "link";
       _key: string;
     }>;
@@ -374,7 +501,8 @@ export type BlockContent = Array<{
   style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
   listItem?: "bullet" | "number";
   markDefs?: Array<{
-    linkType?: "href" | "page" | "navLink";
+    linkType?: "href" | "page";
+    urlTitle?: string;
     href?: string;
     page?: {
       _ref: string;
@@ -382,7 +510,7 @@ export type BlockContent = Array<{
       _weak?: boolean;
       [internalGroqTypeReferenceTo]?: "page";
     };
-    openInNewTab?: boolean;
+    openType?: "newTab" | "modal";
     _type: "link";
     _key: string;
   }>;
@@ -498,7 +626,11 @@ export type Page = {
     _key: string;
   } & InfoCard | {
     _key: string;
-  } & FeatureCard>;
+  } & FeatureCard | {
+    _key: string;
+  } & IntroHero | {
+    _key: string;
+  } & About>;
 };
 
 export type Link = {
@@ -732,7 +864,7 @@ export type SanityAssistSchemaTypeField = {
   } & SanityAssistInstruction>;
 };
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | FeatureCard | InfoCard | InfoWithCTA | CallToAction | MainHero | ImageTextBlock | BlockContent | Settings | Page | Link | Slug | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Color | RgbaColor | HsvaColor | HslaColor | SanityAssistInstructionTask | SanityAssistTaskStatus | SanityAssistSchemaTypeAnnotations | SanityAssistOutputType | SanityAssistOutputField | SanityAssistInstructionContext | AssistInstructionContext | SanityAssistInstructionUserInput | SanityAssistInstructionPrompt | SanityAssistInstructionFieldRef | SanityAssistInstruction | SanityAssistSchemaTypeField;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | About | IntroHero | FeatureCard | InfoCard | InfoWithCTA | CallToAction | MainHero | ImageTextBlock | BlockContent | Settings | Page | Link | Slug | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Color | RgbaColor | HsvaColor | HslaColor | SanityAssistInstructionTask | SanityAssistTaskStatus | SanityAssistSchemaTypeAnnotations | SanityAssistOutputType | SanityAssistOutputField | SanityAssistInstructionContext | AssistInstructionContext | SanityAssistInstructionUserInput | SanityAssistInstructionPrompt | SanityAssistInstructionFieldRef | SanityAssistInstruction | SanityAssistSchemaTypeField;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./sanity/lib/queries.ts
 // Variable: settingsQuery
@@ -810,6 +942,8 @@ export type SettingsQueryResult = {
         pageBackgroundColor?: Color;
         pageBuilder?: Array<{
           _key: string;
+        } & About | {
+          _key: string;
         } & CallToAction | {
           _key: string;
         } & FeatureCard | {
@@ -819,6 +953,8 @@ export type SettingsQueryResult = {
         } & InfoCard | {
           _key: string;
         } & InfoWithCTA | {
+          _key: string;
+        } & IntroHero | {
           _key: string;
         } & MainHero>;
       } | null;
@@ -873,7 +1009,7 @@ export type SettingsQueryResult = {
   };
 } | null;
 // Variable: getPageQuery
-// Query: *[_type == 'page' && slug.current == $slug][0]{    _id,    _type,    name,    slug,    heading,    subheading,    pageBackgroundColor,    "pageBuilder": pageBuilder[]{      ...,      _type == "callToAction" => {        ...,          link {      ...,      _type == "link" => {        "page": page->slug.current,        "post": post->slug.current      }  },      },      _type == "mainHero" => {        ...      }    },  }
+// Query: *[_type == 'page' && slug.current == $slug][0]{    _id,    _type,    name,    slug,    heading,    subheading,    pageBackgroundColor,    "pageBuilder": pageBuilder[]{      ...,      _type == "callToAction" => {        ...,          link {      ...,      _type == "link" => {        "page": page->slug.current,        "post": post->slug.current      }  },      },      _type == "introHero" => {        ...      }    },  }
 export type GetPageQueryResult = {
   _id: string;
   _type: "page";
@@ -883,6 +1019,89 @@ export type GetPageQueryResult = {
   subheading: string | null;
   pageBackgroundColor: Color | null;
   pageBuilder: Array<{
+    _key: string;
+    _type: "about";
+    aboutText?: Array<{
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+      listItem?: "bullet" | "number";
+      markDefs?: Array<{
+        linkType?: "href" | "page";
+        urlTitle?: string;
+        href?: string;
+        page?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "page";
+        };
+        openType?: "modal" | "newTab";
+        _type: "link";
+        _key: string;
+      }>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    }>;
+    contact?: {
+      email: string;
+      phone: string;
+    };
+    office?: {
+      address?: Array<{
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+        listItem?: "bullet" | "number";
+        markDefs?: Array<{
+          linkType?: "href" | "page";
+          urlTitle?: string;
+          href?: string;
+          page?: {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "page";
+          };
+          openType?: "modal" | "newTab";
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }>;
+      addressUrl?: Link;
+    };
+    social?: {
+      instagram?: Link;
+      facebook?: Link;
+    };
+    team?: {
+      coFounders?: Array<{
+        name: string;
+        role: string;
+        _key: string;
+      }>;
+      teammates?: Array<{
+        name: string;
+        _key: string;
+      }>;
+      pastTeammates?: Array<{
+        name: string;
+        _key: string;
+      }>;
+    };
+  } | {
     _key: string;
     _type: "callToAction";
     heading: string;
@@ -933,6 +1152,8 @@ export type GetPageQueryResult = {
     theme?: "darkTheme" | "lightTheme";
     paddingT?: 0 | 12 | 16 | 20 | 24 | 32 | 4 | 40 | 48 | 56 | 64 | 8 | 80 | 96;
     paddingB?: 0 | 12 | 16 | 20 | 24 | 32 | 4 | 40 | 48 | 56 | 64 | 8 | 80 | 96;
+    mobilePaddingT?: 0.5 | 0 | 1.5 | 1 | 10 | 11 | 12 | 14 | 16 | 2.5 | 2 | 20 | 24 | 28 | 3.5 | 3 | 32 | 36 | 4 | 40 | 44 | 48 | 5 | 52 | 56 | 6 | 60 | 64 | 7 | 72 | 8 | 80 | 9 | 96;
+    mobilePaddingB?: 0.5 | 0 | 1.5 | 1 | 10 | 11 | 12 | 14 | 16 | 2.5 | 2 | 20 | 24 | 28 | 3.5 | 3 | 32 | 36 | 4 | 40 | 44 | 48 | 5 | 52 | 56 | 6 | 60 | 64 | 7 | 72 | 8 | 80 | 9 | 96;
     text?: Array<{
       children?: Array<{
         marks?: Array<string>;
@@ -943,7 +1164,8 @@ export type GetPageQueryResult = {
       style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
       listItem?: "bullet" | "number";
       markDefs?: Array<{
-        linkType?: "href" | "navLink" | "page";
+        linkType?: "href" | "page";
+        urlTitle?: string;
         href?: string;
         page?: {
           _ref: string;
@@ -951,7 +1173,7 @@ export type GetPageQueryResult = {
           _weak?: boolean;
           [internalGroqTypeReferenceTo]?: "page";
         };
-        openInNewTab?: boolean;
+        openType?: "modal" | "newTab";
         _type: "link";
         _key: string;
       }>;
@@ -995,7 +1217,8 @@ export type GetPageQueryResult = {
       style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
       listItem?: "bullet" | "number";
       markDefs?: Array<{
-        linkType?: "href" | "navLink" | "page";
+        linkType?: "href" | "page";
+        urlTitle?: string;
         href?: string;
         page?: {
           _ref: string;
@@ -1003,7 +1226,7 @@ export type GetPageQueryResult = {
           _weak?: boolean;
           [internalGroqTypeReferenceTo]?: "page";
         };
-        openInNewTab?: boolean;
+        openType?: "modal" | "newTab";
         _type: "link";
         _key: string;
       }>;
@@ -1022,7 +1245,8 @@ export type GetPageQueryResult = {
       style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
       listItem?: "bullet" | "number";
       markDefs?: Array<{
-        linkType?: "href" | "navLink" | "page";
+        linkType?: "href" | "page";
+        urlTitle?: string;
         href?: string;
         page?: {
           _ref: string;
@@ -1030,7 +1254,7 @@ export type GetPageQueryResult = {
           _weak?: boolean;
           [internalGroqTypeReferenceTo]?: "page";
         };
-        openInNewTab?: boolean;
+        openType?: "modal" | "newTab";
         _type: "link";
         _key: string;
       }>;
@@ -1057,7 +1281,8 @@ export type GetPageQueryResult = {
       style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
       listItem?: "bullet" | "number";
       markDefs?: Array<{
-        linkType?: "href" | "navLink" | "page";
+        linkType?: "href" | "page";
+        urlTitle?: string;
         href?: string;
         page?: {
           _ref: string;
@@ -1065,7 +1290,7 @@ export type GetPageQueryResult = {
           _weak?: boolean;
           [internalGroqTypeReferenceTo]?: "page";
         };
-        openInNewTab?: boolean;
+        openType?: "modal" | "newTab";
         _type: "link";
         _key: string;
       }>;
@@ -1104,7 +1329,8 @@ export type GetPageQueryResult = {
       style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
       listItem?: "bullet" | "number";
       markDefs?: Array<{
-        linkType?: "href" | "navLink" | "page";
+        linkType?: "href" | "page";
+        urlTitle?: string;
         href?: string;
         page?: {
           _ref: string;
@@ -1112,7 +1338,7 @@ export type GetPageQueryResult = {
           _weak?: boolean;
           [internalGroqTypeReferenceTo]?: "page";
         };
-        openInNewTab?: boolean;
+        openType?: "modal" | "newTab";
         _type: "link";
         _key: string;
       }>;
@@ -1130,7 +1356,8 @@ export type GetPageQueryResult = {
       style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
       listItem?: "bullet" | "number";
       markDefs?: Array<{
-        linkType?: "href" | "navLink" | "page";
+        linkType?: "href" | "page";
+        urlTitle?: string;
         href?: string;
         page?: {
           _ref: string;
@@ -1138,7 +1365,7 @@ export type GetPageQueryResult = {
           _weak?: boolean;
           [internalGroqTypeReferenceTo]?: "page";
         };
-        openInNewTab?: boolean;
+        openType?: "modal" | "newTab";
         _type: "link";
         _key: string;
       }>;
@@ -1152,6 +1379,40 @@ export type GetPageQueryResult = {
       link: Link;
       variant?: "buttonDark" | "buttonLight";
     };
+  } | {
+    _key: string;
+    _type: "introHero";
+    desktopBackgroundImages?: Array<{
+      image?: {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      };
+      altText?: string;
+      _key: string;
+    }>;
+    mobileBackgroundImages?: Array<{
+      image?: {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      };
+      altText?: string;
+      _key: string;
+    }>;
+    logo?: string;
   } | {
     _key: string;
     _type: "mainHero";
@@ -1193,7 +1454,7 @@ import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
     "*[_type == \"settings\"][0]{\n    ...,\n      mainNavigation {\n        ...,\n      \"darkLogo\": darkLogo.asset->,\n      \"lightLogo\": lightLogo.asset->,\n      navLinks[]{\n        ...,\n        page->}\n    },\n  }": SettingsQueryResult;
-    "\n  *[_type == 'page' && slug.current == $slug][0]{\n    _id,\n    _type,\n    name,\n    slug,\n    heading,\n    subheading,\n    pageBackgroundColor,\n    \"pageBuilder\": pageBuilder[]{\n      ...,\n      _type == \"callToAction\" => {\n        ...,\n        \n  link {\n      ...,\n      _type == \"link\" => {\n        \"page\": page->slug.current,\n        \"post\": post->slug.current\n      }\n  }\n,\n      },\n      _type == \"mainHero\" => {\n        ...\n      }\n    },\n  }\n": GetPageQueryResult;
+    "\n  *[_type == 'page' && slug.current == $slug][0]{\n    _id,\n    _type,\n    name,\n    slug,\n    heading,\n    subheading,\n    pageBackgroundColor,\n    \"pageBuilder\": pageBuilder[]{\n      ...,\n      _type == \"callToAction\" => {\n        ...,\n        \n  link {\n      ...,\n      _type == \"link\" => {\n        \"page\": page->slug.current,\n        \"post\": post->slug.current\n      }\n  }\n,\n      },\n      _type == \"introHero\" => {\n        ...\n      }\n    },\n  }\n": GetPageQueryResult;
     "\n  *[_type == \"page\" && defined(slug.current)]\n  {\"slug\": slug.current}\n": PagesSlugsResult;
   }
 }

@@ -11,6 +11,7 @@ import { sanityFetch, SanityLive } from "@/sanity/lib/live";
 import { settingsQuery } from "@/sanity/lib/queries";
 import { resolveOpenGraphImage } from "@/sanity/lib/utils";
 import { handleError } from "./client-utils";
+import PageTransition from "./components/PageTransition";
 
 /**
  * Generate metadata for the page.
@@ -22,7 +23,7 @@ export async function generateMetadata(): Promise<Metadata> {
     // Metadata should never contain stega
     stega: false,
   });
-  const title = settings?.title || "Glug";
+  const title = settings?.title || "Alventosa Morell";
   const description = settings?.description;
 
   const ogImage = resolveOpenGraphImage(settings?.ogImage);
@@ -53,7 +54,6 @@ const inter = Inter({
   display: "swap",
 });
 
-const teachers = Teachers({ subsets: ["latin"], weight: ["400", "600"] });
 export default async function RootLayout({
   children,
 }: {
@@ -64,13 +64,13 @@ export default async function RootLayout({
   });
 
   return (
-    <html lang="en" className={`${teachers} text-black`}>
-      <body>
+    <html lang="en">
+      <body className="font-soehne">
         <section>
           <SanityLive onError={handleError} />
           {/* @ts-ignore */}
           {settings && <Header block={settings} />}
-          <main>{children}</main>
+          <main><PageTransition>{children}</PageTransition></main>
           {/* @ts-ignore */}
           <Footer block={settings} />
         </section>

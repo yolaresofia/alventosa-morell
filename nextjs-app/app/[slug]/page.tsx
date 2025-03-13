@@ -59,7 +59,7 @@ export default async function Page(props: Props) {
   if (!page?._id) redirect("/");
   return (
     <div
-      className={`font-teachers bg-[${page.pageBackgroundColor.hex}]`}
+      className={`bg-[${page?.pageBackgroundColor?.hex}]`}
     >
       <Head>
         <title>{page.heading}</title>

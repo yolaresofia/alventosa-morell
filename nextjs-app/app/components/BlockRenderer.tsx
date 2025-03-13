@@ -7,6 +7,8 @@ import MainHero from "./MainHero";
 import InfoCard from "./InfoCard";
 import ImageTextBlock from "./ImageTextBlock";
 import InfoWithCTA from "./InfoWithCTA";
+import IntroHero from "./IntroHero";
+import About from "./About";
 
 type BlocksType = {
   [key: string]: React.FC<any>;
@@ -31,6 +33,8 @@ const Blocks: BlocksType = {
   featureCard: FeatureCard,
   infoCard: InfoCard,
   imageTextBlock: ImageTextBlock,
+  introHero: IntroHero,
+  about: About
 };
 
 /**

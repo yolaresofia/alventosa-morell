@@ -1,6 +1,6 @@
 import { client } from "@/sanity/lib/client";
 import BlockRenderer from "./components/BlockRenderer";
-import Header from "./components/Header";
+import IntroHero from "./components/IntroHero";
 
 export default async function Page() {
   //refactor this
@@ -8,7 +8,7 @@ export default async function Page() {
     '*[_type == "page" && slug.current == "/"]'
   );
   return (
-    <div className="font-teachers">
+    <div>
       {page?.pageBuilder?.map((block: any, index: number) => (
         <BlockRenderer
           key={block._key}

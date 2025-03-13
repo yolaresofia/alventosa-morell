@@ -8,6 +8,8 @@ import { infoWithCTA } from './objects/infoWithCTA'
 import { imageTextBlock } from './objects/imageTextBlock'
 import { infoCard } from './objects/infoCard'
 import { featureCard } from './objects/featureCard'
+import { introHero } from './objects/introHero'
+import { about } from './objects/about'
 
 // Export an array of all the schema types.  This is used in the Sanity Studio configuration. https://www.sanity.io/docs/schema-types
 
@@ -25,4 +27,6 @@ export const schemaTypes = [
   link,
   infoCard,
   featureCard,
+  introHero,
+  about
 ]
