@@ -17,7 +17,6 @@ export default function IntroHero({ block }: IntroHeroProps) {
 
   const desktopImages = useMemo(() => block.desktopBackgroundImages || [], [block.desktopBackgroundImages]);
   const mobileImages = useMemo(() => block.mobileBackgroundImages || [], [block.mobileBackgroundImages]);
-  const isFilterActive = block.filter;
 
   useEffect(() => {
     const handleResize = () => {
@@ -90,7 +89,6 @@ export default function IntroHero({ block }: IntroHeroProps) {
         ))}
       </div>
 
-      {/* Mobile Images */}
       <div className="absolute inset-0 w-full h-full block md:hidden">
         {mobileImages.map((img, index) => (
           <Image
@@ -105,10 +103,13 @@ export default function IntroHero({ block }: IntroHeroProps) {
           />
         ))}
       </div>
+
+      {/* Overlay with 15% opacity */}
+      <div className="absolute inset-0 bg-black/15"></div>
+      
       {block.logo && (
         <div
           id="hero-logo"
-          style={{ backdropFilter: isFilterActive ? "blur(2px)" : "none" }}
           className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 text-white text-5xl font-bold cursor-pointer p-3"
           onClick={() => router.push("/about")}
         >
