@@ -8,7 +8,6 @@ import { sanityFetch, SanityLive } from "@/sanity/lib/live";
 import { settingsQuery } from "@/sanity/lib/queries";
 import { resolveOpenGraphImage } from "@/sanity/lib/utils";
 import { handleError } from "./client-utils";
-import PageTransition from "./components/PageTransition";
 
 /**
  * Generate metadata for the page.
@@ -66,7 +65,7 @@ export default async function RootLayout({
         <section>
           <SanityLive onError={handleError} />
           {/* @ts-ignore */}
-          <main><PageTransition>{children}</PageTransition></main>
+          <main>{children}</main>
           {/* @ts-ignore */}
         </section>
         <SpeedInsights />
