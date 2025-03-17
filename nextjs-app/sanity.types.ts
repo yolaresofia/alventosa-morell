@@ -70,38 +70,104 @@ export type Geopoint = {
 
 export type About = {
   _type: "about";
-  aboutText?: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
+  aboutText?: {
+    ca?: Array<{
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
+      listItem?: "bullet" | "number";
+      markDefs?: Array<{
+        linkType?: "href" | "page";
+        urlTitle?: string;
+        href?: string;
+        page?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "page";
+        };
+        openType?: "newTab" | "modal";
+        _type: "link";
+        _key: string;
+      }>;
+      level?: number;
+      _type: "block";
       _key: string;
     }>;
-    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
-    listItem?: "bullet" | "number";
-    markDefs?: Array<{
-      linkType?: "href" | "page";
-      urlTitle?: string;
-      href?: string;
-      page?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "page";
-      };
-      openType?: "newTab" | "modal";
-      _type: "link";
+    en?: Array<{
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
+      listItem?: "bullet" | "number";
+      markDefs?: Array<{
+        linkType?: "href" | "page";
+        urlTitle?: string;
+        href?: string;
+        page?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "page";
+        };
+        openType?: "newTab" | "modal";
+        _type: "link";
+        _key: string;
+      }>;
+      level?: number;
+      _type: "block";
       _key: string;
     }>;
-    level?: number;
-    _type: "block";
-    _key: string;
-  }>;
+    es?: Array<{
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
+      listItem?: "bullet" | "number";
+      markDefs?: Array<{
+        linkType?: "href" | "page";
+        urlTitle?: string;
+        href?: string;
+        page?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "page";
+        };
+        openType?: "newTab" | "modal";
+        _type: "link";
+        _key: string;
+      }>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    }>;
+  };
   contact?: {
+    titleTranslations?: {
+      ca?: string;
+      en?: string;
+      es?: string;
+    };
     email: string;
     phone: string;
   };
   office?: {
+    titleTranslations?: {
+      ca?: string;
+      en?: string;
+      es?: string;
+    };
     address?: Array<{
       children?: Array<{
         marks?: Array<string>;
@@ -132,23 +198,47 @@ export type About = {
     addressUrl?: Link;
   };
   social?: {
+    titleTranslations?: {
+      ca?: string;
+      en?: string;
+      es?: string;
+    };
     instagram?: Link;
     facebook?: Link;
   };
   team?: {
+    titleTranslations?: {
+      ca?: string;
+      en?: string;
+      es?: string;
+    };
     coFounders?: Array<{
       name: string;
-      role: string;
+      role?: {
+        ca?: string;
+        en?: string;
+        es?: string;
+      };
       _key: string;
     }>;
     teammates?: Array<{
       name: string;
       _key: string;
     }>;
+    teammatesTitleTranslations?: {
+      ca?: string;
+      en?: string;
+      es?: string;
+    };
     pastTeammates?: Array<{
       name: string;
       _key: string;
     }>;
+    pastTeammatesTitleTranslations?: {
+      ca?: string;
+      en?: string;
+      es?: string;
+    };
   };
 };
 
@@ -184,7 +274,28 @@ export type IntroHero = {
     altText?: string;
     _key: string;
   }>;
-  logo?: string;
+  logo?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  logoAltText?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
   filter?: boolean;
 };
 
@@ -520,90 +631,6 @@ export type BlockContent = Array<{
   _key: string;
 }>;
 
-export type Settings = {
-  _id: string;
-  _type: "settings";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  title: string;
-  mainNavigation?: {
-    lightLogo?: {
-      asset?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-      };
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
-      _type: "image";
-    };
-    darkLogo?: {
-      asset?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-      };
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
-      _type: "image";
-    };
-    secondColumnNav: BlockContent;
-    thirdColumnNav: BlockContent;
-    navLinks: Array<{
-      _key: string;
-    } & Link>;
-  };
-  footer?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    secondColumnFooter: BlockContent;
-    thirdColumnFooter: BlockContent;
-    fourthColumnFooter: BlockContent;
-    fifthColumnFooter: BlockContent;
-    _type: "image";
-  };
-  description?: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
-      _key: string;
-    }>;
-    style?: "normal";
-    listItem?: never;
-    markDefs?: Array<{
-      href: string;
-      _type: "link";
-      _key: string;
-    }>;
-    level?: number;
-    _type: "block";
-    _key: string;
-  }>;
-  ogImage?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    alt?: string;
-    metadataBase?: string;
-    _type: "image";
-  };
-};
-
 export type Page = {
   _id: string;
   _type: "page";
@@ -652,6 +679,46 @@ export type Slug = {
   _type: "slug";
   current: string;
   source?: string;
+};
+
+export type Settings = {
+  _id: string;
+  _type: "settings";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title: string;
+  description?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "normal";
+    listItem?: never;
+    markDefs?: Array<{
+      href: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }>;
+  ogImage?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    metadataBase?: string;
+    _type: "image";
+  };
 };
 
 export type SanityImageCrop = {
@@ -865,7 +932,7 @@ export type SanityAssistSchemaTypeField = {
   } & SanityAssistInstruction>;
 };
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | About | IntroHero | FeatureCard | InfoCard | InfoWithCTA | CallToAction | MainHero | ImageTextBlock | BlockContent | Settings | Page | Link | Slug | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Color | RgbaColor | HsvaColor | HslaColor | SanityAssistInstructionTask | SanityAssistTaskStatus | SanityAssistSchemaTypeAnnotations | SanityAssistOutputType | SanityAssistOutputField | SanityAssistInstructionContext | AssistInstructionContext | SanityAssistInstructionUserInput | SanityAssistInstructionPrompt | SanityAssistInstructionFieldRef | SanityAssistInstruction | SanityAssistSchemaTypeField;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | About | IntroHero | FeatureCard | InfoCard | InfoWithCTA | CallToAction | MainHero | ImageTextBlock | BlockContent | Page | Link | Slug | Settings | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Color | RgbaColor | HsvaColor | HslaColor | SanityAssistInstructionTask | SanityAssistTaskStatus | SanityAssistSchemaTypeAnnotations | SanityAssistOutputType | SanityAssistOutputField | SanityAssistInstructionContext | AssistInstructionContext | SanityAssistInstructionUserInput | SanityAssistInstructionPrompt | SanityAssistInstructionFieldRef | SanityAssistInstruction | SanityAssistSchemaTypeField;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./sanity/lib/queries.ts
 // Variable: settingsQuery
@@ -877,106 +944,6 @@ export type SettingsQueryResult = {
   _updatedAt: string;
   _rev: string;
   title: string;
-  mainNavigation: {
-    lightLogo: {
-      _id: string;
-      _type: "sanity.imageAsset";
-      _createdAt: string;
-      _updatedAt: string;
-      _rev: string;
-      originalFilename?: string;
-      label?: string;
-      title?: string;
-      description?: string;
-      altText?: string;
-      sha1hash?: string;
-      extension?: string;
-      mimeType?: string;
-      size?: number;
-      assetId?: string;
-      uploadId?: string;
-      path?: string;
-      url?: string;
-      metadata?: SanityImageMetadata;
-      source?: SanityAssetSourceData;
-    } | null;
-    darkLogo: {
-      _id: string;
-      _type: "sanity.imageAsset";
-      _createdAt: string;
-      _updatedAt: string;
-      _rev: string;
-      originalFilename?: string;
-      label?: string;
-      title?: string;
-      description?: string;
-      altText?: string;
-      sha1hash?: string;
-      extension?: string;
-      mimeType?: string;
-      size?: number;
-      assetId?: string;
-      uploadId?: string;
-      path?: string;
-      url?: string;
-      metadata?: SanityImageMetadata;
-      source?: SanityAssetSourceData;
-    } | null;
-    secondColumnNav: BlockContent;
-    thirdColumnNav: BlockContent;
-    navLinks: Array<{
-      _key: string;
-      _type: "link";
-      linkType?: "href" | "page";
-      urlTitle?: string;
-      href?: string;
-      page: {
-        _id: string;
-        _type: "page";
-        _createdAt: string;
-        _updatedAt: string;
-        _rev: string;
-        name: string;
-        slug?: Slug;
-        heading: string;
-        subheading?: string;
-        pageBackgroundColor?: Color;
-        pageBuilder?: Array<{
-          _key: string;
-        } & About | {
-          _key: string;
-        } & CallToAction | {
-          _key: string;
-        } & FeatureCard | {
-          _key: string;
-        } & ImageTextBlock | {
-          _key: string;
-        } & InfoCard | {
-          _key: string;
-        } & InfoWithCTA | {
-          _key: string;
-        } & IntroHero | {
-          _key: string;
-        } & MainHero>;
-      } | null;
-      openType?: "modal" | "newTab";
-    }>;
-  } | null;
-  footer?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    secondColumnFooter: BlockContent;
-    thirdColumnFooter: BlockContent;
-    fourthColumnFooter: BlockContent;
-    fifthColumnFooter: BlockContent;
-    _type: "image";
-  };
   description?: Array<{
     children?: Array<{
       marks?: Array<string>;
@@ -1008,6 +975,7 @@ export type SettingsQueryResult = {
     metadataBase?: string;
     _type: "image";
   };
+  mainNavigation: null;
 } | null;
 // Variable: getPageQuery
 // Query: *[_type == 'page' && slug.current == $slug][0]{    _id,    _type,    name,    slug,    heading,    subheading,    pageBackgroundColor,    "pageBuilder": pageBuilder[]{      ...,      _type == "callToAction" => {        ...,          link {      ...,      _type == "link" => {        "page": page->slug.current,        "post": post->slug.current      }  },      },      _type == "introHero" => {        ...      }    },  }
@@ -1022,38 +990,104 @@ export type GetPageQueryResult = {
   pageBuilder: Array<{
     _key: string;
     _type: "about";
-    aboutText?: Array<{
-      children?: Array<{
-        marks?: Array<string>;
-        text?: string;
-        _type: "span";
+    aboutText?: {
+      ca?: Array<{
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+        listItem?: "bullet" | "number";
+        markDefs?: Array<{
+          linkType?: "href" | "page";
+          urlTitle?: string;
+          href?: string;
+          page?: {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "page";
+          };
+          openType?: "modal" | "newTab";
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "block";
         _key: string;
       }>;
-      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
-      listItem?: "bullet" | "number";
-      markDefs?: Array<{
-        linkType?: "href" | "page";
-        urlTitle?: string;
-        href?: string;
-        page?: {
-          _ref: string;
-          _type: "reference";
-          _weak?: boolean;
-          [internalGroqTypeReferenceTo]?: "page";
-        };
-        openType?: "modal" | "newTab";
-        _type: "link";
+      en?: Array<{
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+        listItem?: "bullet" | "number";
+        markDefs?: Array<{
+          linkType?: "href" | "page";
+          urlTitle?: string;
+          href?: string;
+          page?: {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "page";
+          };
+          openType?: "modal" | "newTab";
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "block";
         _key: string;
       }>;
-      level?: number;
-      _type: "block";
-      _key: string;
-    }>;
+      es?: Array<{
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+        listItem?: "bullet" | "number";
+        markDefs?: Array<{
+          linkType?: "href" | "page";
+          urlTitle?: string;
+          href?: string;
+          page?: {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "page";
+          };
+          openType?: "modal" | "newTab";
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }>;
+    };
     contact?: {
+      titleTranslations?: {
+        ca?: string;
+        en?: string;
+        es?: string;
+      };
       email: string;
       phone: string;
     };
     office?: {
+      titleTranslations?: {
+        ca?: string;
+        en?: string;
+        es?: string;
+      };
       address?: Array<{
         children?: Array<{
           marks?: Array<string>;
@@ -1084,23 +1118,47 @@ export type GetPageQueryResult = {
       addressUrl?: Link;
     };
     social?: {
+      titleTranslations?: {
+        ca?: string;
+        en?: string;
+        es?: string;
+      };
       instagram?: Link;
       facebook?: Link;
     };
     team?: {
+      titleTranslations?: {
+        ca?: string;
+        en?: string;
+        es?: string;
+      };
       coFounders?: Array<{
         name: string;
-        role: string;
+        role?: {
+          ca?: string;
+          en?: string;
+          es?: string;
+        };
         _key: string;
       }>;
       teammates?: Array<{
         name: string;
         _key: string;
       }>;
+      teammatesTitleTranslations?: {
+        ca?: string;
+        en?: string;
+        es?: string;
+      };
       pastTeammates?: Array<{
         name: string;
         _key: string;
       }>;
+      pastTeammatesTitleTranslations?: {
+        ca?: string;
+        en?: string;
+        es?: string;
+      };
     };
   } | {
     _key: string;
@@ -1413,7 +1471,28 @@ export type GetPageQueryResult = {
       altText?: string;
       _key: string;
     }>;
-    logo?: string;
+    logo?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+    logoAltText?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
     filter?: boolean;
   } | {
     _key: string;

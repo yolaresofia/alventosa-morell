@@ -82,6 +82,11 @@ export const introHero = defineType({
     defineField({
       name: 'logo',
       title: 'Logo',
+      type: 'image',
+    }),
+    defineField({
+      name: 'logoAltText',
+      title: 'Logo Alt Text',
       type: 'string',
     }),
     defineField({

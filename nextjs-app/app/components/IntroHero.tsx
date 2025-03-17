@@ -15,8 +15,14 @@ export default function IntroHero({ block }: IntroHeroProps) {
   const [isMobile, setIsMobile] = useState(false);
   const router = useRouter();
 
-  const desktopImages = useMemo(() => block.desktopBackgroundImages || [], [block.desktopBackgroundImages]);
-  const mobileImages = useMemo(() => block.mobileBackgroundImages || [], [block.mobileBackgroundImages]);
+  const desktopImages = useMemo(
+    () => block.desktopBackgroundImages || [],
+    [block.desktopBackgroundImages]
+  );
+  const mobileImages = useMemo(
+    () => block.mobileBackgroundImages || [],
+    [block.mobileBackgroundImages]
+  );
 
   useEffect(() => {
     const handleResize = () => {
@@ -49,13 +55,18 @@ export default function IntroHero({ block }: IntroHeroProps) {
       if (e.key === "ArrowRight") {
         setCurrentIndex((prevIndex) => (prevIndex + 1) % desktopImages.length);
       } else if (e.key === "ArrowLeft") {
-        setCurrentIndex((prevIndex) => (prevIndex - 1 + desktopImages.length) % desktopImages.length);
+        setCurrentIndex(
+          (prevIndex) =>
+            (prevIndex - 1 + desktopImages.length) % desktopImages.length
+        );
       }
     };
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [isMobile, desktopImages]);
+
+  console.log("Logo URL:", urlForImage(block?.logo)?.url());
 
   const handleClick = useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
@@ -73,7 +84,10 @@ export default function IntroHero({ block }: IntroHeroProps) {
   if (!block) return null;
 
   return (
-    <section className="relative w-full h-screen overflow-hidden flex items-center justify-center" onClick={handleClick}>
+    <section
+      className="relative w-full h-screen overflow-hidden flex items-center justify-center"
+      onClick={handleClick}
+    >
       <div className="absolute inset-0 w-full h-full hidden md:block">
         {desktopImages.map((img, index) => (
           <Image
@@ -104,17 +118,16 @@ export default function IntroHero({ block }: IntroHeroProps) {
         ))}
       </div>
 
-      {/* Overlay with 15% opacity */}
-      <div className="absolute inset-0 bg-black/15"></div>
-      
+      <div className="absolute inset-0 bg-black/10"></div>
+
       {block.logo && (
-        <div
-          id="hero-logo"
-          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 text-white text-5xl font-bold cursor-pointer p-3"
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={urlForImage(block?.logo)?.url() as string}
+          alt={block?.logoAltText?.toString() || "Logo"}
           onClick={() => router.push("/about")}
-        >
-          {block.logo}
-        </div>
+          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 cursor-pointer md:w-[550px] w-[350px] h-auto"
+        />
       )}
     </section>
   );

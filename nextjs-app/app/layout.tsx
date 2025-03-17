@@ -4,9 +4,6 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
 import { Inter, Teachers } from "next/font/google";
 import { toPlainText } from "next-sanity";
-
-import Footer from "@/app/components/Footer";
-import Header from "@/app/components/Header";
 import { sanityFetch, SanityLive } from "@/sanity/lib/live";
 import { settingsQuery } from "@/sanity/lib/queries";
 import { resolveOpenGraphImage } from "@/sanity/lib/utils";
@@ -69,10 +66,8 @@ export default async function RootLayout({
         <section>
           <SanityLive onError={handleError} />
           {/* @ts-ignore */}
-          {settings && <Header block={settings} />}
           <main><PageTransition>{children}</PageTransition></main>
           {/* @ts-ignore */}
-          <Footer block={settings} />
         </section>
         <SpeedInsights />
       </body>

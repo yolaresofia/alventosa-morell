@@ -15,11 +15,13 @@ export default function PageTransition({ children }: { children: React.ReactNode
 
     setTimeout(() => {
       router.push(url);
-    }, 900);
+    }, 400);
   };
 
   useEffect(() => {
-    setTimeout(() => setIsAnimating(false), 900);
+    setIsAnimating(true);
+
+    setTimeout(() => setIsAnimating(false), 400);
   }, [pathname]);
 
   return (
@@ -39,21 +41,20 @@ export default function PageTransition({ children }: { children: React.ReactNode
       <AnimatePresence>
         {isAnimating && (
           <motion.div
-            className="fixed inset-0 bg-white z-50"
+            className="fixed inset-0 bg-white z-50 pointer-events-none"
             initial={{ y: "100%" }}
             animate={{ y: 0 }}
             exit={{ y: "-100%" }}
-            transition={{ duration: 0.9, ease: "easeInOut" }}
+            transition={{ duration: 0.6, ease: "easeInOut" }}
           />
         )}
       </AnimatePresence>
-
-      {/* Click anywhere except text to navigate back */}
       {!isAnimating && pathname === "/about" && (
         <div
-          className="fixed inset-0 z-10"
+          className="fixed inset-0"
           onClick={(e) => {
-            if ((e.target as HTMLElement).closest("a, p, h1, h2, h3, h4, h5, h6")) return;
+            const target = e.target as HTMLElement;
+            if (target.closest("a, p, h1, h2, h3, h4, h5, h6, button")) return;
             handleNavigate("/");
           }}
         />

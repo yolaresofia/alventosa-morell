@@ -9,8 +9,13 @@ export const about = defineType({
   fields: [
     defineField({
       name: 'aboutText',
-      title: 'Texto About',
-      type: 'blockContent',
+      title: 'About Text',
+      type: 'object',
+      fields: [
+        defineField({ name: 'ca', title: 'Català', type: 'blockContent' }),
+        defineField({ name: 'en', title: 'English', type: 'blockContent' }),
+        defineField({ name: 'es', title: 'Español', type: 'blockContent' }),
+      ],
     }),
     defineField({
       name: 'contact',
@@ -18,6 +23,16 @@ export const about = defineType({
       type: 'object',
       icon: EnvelopeIcon,
       fields: [
+        defineField({
+          name: 'titleTranslations',
+          title: 'Translations',
+          type: 'object',
+          fields: [
+            defineField({ name: 'ca', title: 'Català', type: 'string' }),
+            defineField({ name: 'en', title: 'English', type: 'string' }),
+            defineField({ name: 'es', title: 'Español', type: 'string' }),
+          ],
+        }),
         defineField({
           name: 'email',
           title: 'Email',
@@ -39,23 +54,43 @@ export const about = defineType({
       icon: EnvelopeIcon,
       fields: [
         defineField({
+          name: 'titleTranslations',
+          title: 'Translations',
+          type: 'object',
+          fields: [
+            defineField({ name: 'ca', title: 'Català', type: 'string' }),
+            defineField({ name: 'en', title: 'English', type: 'string' }),
+            defineField({ name: 'es', title: 'Español', type: 'string' }),
+          ],
+        }),
+        defineField({
           name: 'address',
           title: 'Address',
           type: 'blockContent',
         }),
         defineField({
           name: 'addressUrl',
-          title: 'Address url',
+          title: 'Address URL',
           type: 'link',
         }),
       ],
     }),
     defineField({
       name: 'social',
-      title: 'Social',
+      title: 'Social Media',
       type: 'object',
       icon: EnvelopeIcon,
       fields: [
+        defineField({
+          name: 'titleTranslations',
+          title: 'Translations',
+          type: 'object',
+          fields: [
+            defineField({ name: 'ca', title: 'Català', type: 'string' }),
+            defineField({ name: 'en', title: 'English', type: 'string' }),
+            defineField({ name: 'es', title: 'Español', type: 'string' }),
+          ],
+        }),
         defineField({
           name: 'instagram',
           title: 'Instagram',
@@ -75,6 +110,16 @@ export const about = defineType({
       icon: UsersIcon,
       fields: [
         defineField({
+          name: 'titleTranslations',
+          title: 'Translations',
+          type: 'object',
+          fields: [
+            defineField({ name: 'ca', title: 'Català', type: 'string' }),
+            defineField({ name: 'en', title: 'English', type: 'string' }),
+            defineField({ name: 'es', title: 'Español', type: 'string' }),
+          ],
+        }),
+        defineField({
           name: 'coFounders',
           title: 'Co-Founders',
           type: 'array',
@@ -91,8 +136,12 @@ export const about = defineType({
                 defineField({
                   name: 'role',
                   title: 'Role',
-                  type: 'string',
-                  validation: (Rule) => Rule.required(),
+                  type: 'object',
+                  fields: [
+                    defineField({ name: 'ca', title: 'Català', type: 'string' }),
+                    defineField({ name: 'en', title: 'English', type: 'string' }),
+                    defineField({ name: 'es', title: 'Español', type: 'string' }),
+                  ],
                 }),
               ],
             },
@@ -117,6 +166,16 @@ export const about = defineType({
           ],
         }),
         defineField({
+          name: 'teammatesTitleTranslations',
+          title: 'Teammates Translations',
+          type: 'object',
+          fields: [
+            defineField({ name: 'ca', title: 'Català', type: 'string' }),
+            defineField({ name: 'en', title: 'English', type: 'string' }),
+            defineField({ name: 'es', title: 'Español', type: 'string' }),
+          ],
+        }),
+        defineField({
           name: 'pastTeammates',
           title: 'Past Teammates',
           type: 'array',
@@ -132,6 +191,16 @@ export const about = defineType({
                 }),
               ],
             },
+          ],
+        }),
+        defineField({
+          name: 'pastTeammatesTitleTranslations',
+          title: 'Past Teammates Translations',
+          type: 'object',
+          fields: [
+            defineField({ name: 'ca', title: 'Català', type: 'string' }),
+            defineField({ name: 'en', title: 'English', type: 'string' }),
+            defineField({ name: 'es', title: 'Español', type: 'string' }),
           ],
         }),
       ],
