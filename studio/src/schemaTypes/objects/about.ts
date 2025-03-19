@@ -95,12 +95,7 @@ export const about = defineType({
           name: 'instagram',
           title: 'Instagram',
           type: 'link',
-        }),
-        defineField({
-          name: 'facebook',
-          title: 'Facebook',
-          type: 'link',
-        }),
+        })
       ],
     }),
     defineField({

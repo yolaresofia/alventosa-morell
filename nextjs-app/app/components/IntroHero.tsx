@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useMemo, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { IntroHero as IntroHeroType } from "@/sanity.types";
@@ -13,16 +13,27 @@ type IntroHeroProps = {
 export default function IntroHero({ block }: IntroHeroProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
+  const [shuffledDesktopImages, setShuffledDesktopImages] = useState<any[]>([]);
+  const [shuffledMobileImages, setShuffledMobileImages] = useState<any[]>([]);
   const router = useRouter();
 
-  const desktopImages = useMemo(
-    () => block.desktopBackgroundImages || [],
-    [block.desktopBackgroundImages]
-  );
-  const mobileImages = useMemo(
-    () => block.mobileBackgroundImages || [],
-    [block.mobileBackgroundImages]
-  );
+  const shuffleArray = (array: any[]) => {
+    const shuffled = [...array];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+  };
+
+  useEffect(() => {
+    if (block.desktopBackgroundImages) {
+      setShuffledDesktopImages(shuffleArray(block.desktopBackgroundImages));
+    }
+    if (block.mobileBackgroundImages) {
+      setShuffledMobileImages(shuffleArray(block.mobileBackgroundImages));
+    }
+  }, [block.desktopBackgroundImages, block.mobileBackgroundImages]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -38,7 +49,8 @@ export default function IntroHero({ block }: IntroHeroProps) {
   useEffect(() => {
     if (!isMobile) return;
 
-    const images = mobileImages.length > 0 ? mobileImages : desktopImages;
+    const images =
+      shuffledMobileImages.length > 0 ? shuffledMobileImages : shuffledDesktopImages;
     if (images.length === 0) return;
 
     const interval = setInterval(() => {
@@ -46,25 +58,25 @@ export default function IntroHero({ block }: IntroHeroProps) {
     }, 5000);
 
     return () => clearInterval(interval);
-  }, [isMobile, mobileImages, desktopImages]);
+  }, [isMobile, shuffledMobileImages, shuffledDesktopImages]);
 
   useEffect(() => {
     if (isMobile) return;
 
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "ArrowRight") {
-        setCurrentIndex((prevIndex) => (prevIndex + 1) % desktopImages.length);
+        setCurrentIndex((prevIndex) => (prevIndex + 1) % shuffledDesktopImages.length);
       } else if (e.key === "ArrowLeft") {
         setCurrentIndex(
           (prevIndex) =>
-            (prevIndex - 1 + desktopImages.length) % desktopImages.length
+            (prevIndex - 1 + shuffledDesktopImages.length) % shuffledDesktopImages.length
         );
       }
     };
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [isMobile, desktopImages]);
+  }, [isMobile, shuffledDesktopImages]);
 
   console.log("Logo URL:", urlForImage(block?.logo)?.url());
 
@@ -75,10 +87,10 @@ export default function IntroHero({ block }: IntroHeroProps) {
       if (logoElement && logoElement.contains(e.target as Node)) {
         router.push("/about");
       } else {
-        setCurrentIndex((prevIndex) => (prevIndex + 1) % desktopImages.length);
+        setCurrentIndex((prevIndex) => (prevIndex + 1) % shuffledDesktopImages.length);
       }
     },
-    [isMobile, desktopImages.length, router]
+    [isMobile, shuffledDesktopImages.length, router]
   );
 
   if (!block) return null;
@@ -89,7 +101,7 @@ export default function IntroHero({ block }: IntroHeroProps) {
       onClick={handleClick}
     >
       <div className="absolute inset-0 w-full h-full hidden md:block">
-        {desktopImages.map((img, index) => (
+        {shuffledDesktopImages.map((img, index) => (
           <Image
             key={index}
             src={urlForImage(img?.image)?.url() as string}
@@ -104,7 +116,7 @@ export default function IntroHero({ block }: IntroHeroProps) {
       </div>
 
       <div className="absolute inset-0 w-full h-full block md:hidden">
-        {mobileImages.map((img, index) => (
+        {shuffledMobileImages.map((img, index) => (
           <Image
             key={index}
             src={urlForImage(img?.image)?.url() as string}
@@ -123,6 +135,7 @@ export default function IntroHero({ block }: IntroHeroProps) {
       {block.logo && (
         // eslint-disable-next-line @next/next/no-img-element
         <img
+          id="hero-logo"
           src={urlForImage(block?.logo)?.url() as string}
           alt={block?.logoAltText?.toString() || "Logo"}
           onClick={() => router.push("/about")}
