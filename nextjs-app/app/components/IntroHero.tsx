@@ -130,7 +130,7 @@ export default function IntroHero({ block }: IntroHeroProps) {
         ))}
       </div>
 
-      <div className="absolute inset-0 bg-black/10"></div>
+      <div className="absolute inset-0 bg-black/15"></div>
 
       {block.logo && (
         // eslint-disable-next-line @next/next/no-img-element

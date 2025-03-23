@@ -42,12 +42,11 @@ export default function About({ block }: AboutProps) {
       className="relative w-full min-h-screen bg-white text-black px-6 pt-8 pb-16 flex flex-col"
       onClick={handleBackgroundClick}
     >
-      <div className="text-2xl font-medium leading-tight">
+      <div className="md:text-2xl text-lg font-medium leading-tight md:pb-24">
         <PortableText
           value={getTranslation(block.aboutText) as PortableTextBlock[]}
         />
       </div>
-
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-10 text-sm flex-grow">
         <div className="col-span-1">
           <div className="flex flex-col">
@@ -69,16 +68,16 @@ export default function About({ block }: AboutProps) {
             />
           </a>
 
-          <div className="flex flex-col">
-            <h2 className="mt-4">
-              {getTranslation(block.social?.titleTranslations)}
-            </h2>
+          <div className="flex flex-col py-4">
             <a href={`${block.social?.instagram?.href || ""}`} target="_blank">
               {block.social?.instagram?.urlTitle}
             </a>
           </div>
-
-          <p className="text-sm mt-6">Site under construction</p>
+          <div className="text-sm">
+            <PortableText
+              value={getTranslation(block?.aboutInfo) as PortableTextBlock[]}
+            />
+          </div>
         </div>
 
         <div className="col-span-1">

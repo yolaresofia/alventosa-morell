@@ -82,16 +82,6 @@ export const about = defineType({
       icon: EnvelopeIcon,
       fields: [
         defineField({
-          name: 'titleTranslations',
-          title: 'Translations',
-          type: 'object',
-          fields: [
-            defineField({ name: 'ca', title: 'Català', type: 'string' }),
-            defineField({ name: 'en', title: 'English', type: 'string' }),
-            defineField({ name: 'es', title: 'Español', type: 'string' }),
-          ],
-        }),
-        defineField({
           name: 'instagram',
           title: 'Instagram',
           type: 'link',
@@ -198,6 +188,16 @@ export const about = defineType({
             defineField({ name: 'es', title: 'Español', type: 'string' }),
           ],
         }),
+      ],
+    }),
+    defineField({
+      name: 'aboutInfo',
+      title: 'About Info',
+      type: 'object',
+      fields: [
+        defineField({ name: 'ca', title: 'Català', type: 'blockContent' }),
+        defineField({ name: 'en', title: 'English', type: 'blockContent' }),
+        defineField({ name: 'es', title: 'Español', type: 'blockContent' }),
       ],
     }),
   ],
