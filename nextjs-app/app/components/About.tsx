@@ -88,10 +88,7 @@ export default function About({ block }: AboutProps) {
               <p>{getTranslation(member.role)}</p>
             </div>
           ))}
-
-          <h2 className="mt-4">
-            {getTranslation(block.team?.teammatesTitleTranslations)}
-          </h2>
+          
           <div className="pb-4">
             {block?.team?.teammates?.map((member) => (
               <div key={member._key}>
