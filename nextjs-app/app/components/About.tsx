@@ -79,7 +79,6 @@ export default function About({ block }: AboutProps) {
             />
           </div>
         </div>
-{/* comment test */}
         <div className="col-span-1">
           <h2>{getTranslation(block.team?.titleTranslations)}</h2>
           {block?.team?.coFounders?.map((member) => (
