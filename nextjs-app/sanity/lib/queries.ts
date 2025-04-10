@@ -48,3 +48,16 @@ export const pagesSlugs = defineQuery(`
   *[_type == "page" && defined(slug.current)]
   {"slug": slug.current}
 `);
+
+export const getProjectQuery = defineQuery(`
+  *[_type == 'project' && slug.current == $slug][0]{
+    _id,
+    _type,
+    title,
+    slug,
+    category,
+    "builder": builder[]{
+      ...
+    },
+  }
+`);

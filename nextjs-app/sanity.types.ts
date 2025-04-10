@@ -68,6 +68,229 @@ export type Geopoint = {
   alt?: number;
 };
 
+export type ProjectInfo = {
+  _type: "projectInfo";
+  description?: {
+    ca?: string;
+    es?: string;
+    en?: string;
+  };
+  project?: {
+    label?: {
+      ca?: string;
+      es?: string;
+      en?: string;
+    };
+    value?: {
+      ca?: string;
+      es?: string;
+      en?: string;
+    };
+  };
+  year?: {
+    label?: {
+      ca?: string;
+      es?: string;
+      en?: string;
+    };
+    value?: string;
+  };
+  location?: {
+    label?: {
+      ca?: string;
+      es?: string;
+      en?: string;
+    };
+    value?: {
+      ca?: string;
+      es?: string;
+      en?: string;
+    };
+  };
+  program?: {
+    label?: {
+      ca?: string;
+      es?: string;
+      en?: string;
+    };
+    value?: {
+      ca?: string;
+      es?: string;
+      en?: string;
+    };
+  };
+  area?: {
+    label?: {
+      ca?: string;
+      es?: string;
+      en?: string;
+    };
+    value?: string;
+  };
+  authors?: {
+    label?: {
+      ca?: string;
+      es?: string;
+      en?: string;
+    };
+    value?: {
+      ca?: string;
+      es?: string;
+      en?: string;
+    };
+  };
+  team?: {
+    label?: {
+      ca?: string;
+      es?: string;
+      en?: string;
+    };
+    value?: {
+      ca?: string;
+      es?: string;
+      en?: string;
+    };
+  };
+  photographer?: {
+    label?: {
+      ca?: string;
+      es?: string;
+      en?: string;
+    };
+    value?: string;
+  };
+};
+
+export type TextBlock = {
+  _type: "textBlock";
+  text: string;
+  alignment?: "left" | "right";
+};
+
+export type ImageCarousel = {
+  _type: "imageCarousel";
+  images: Array<{
+    image: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+    altText: {
+      ca?: string;
+      es?: string;
+      en?: string;
+    };
+    _type: "imageWithAltText";
+    _key: string;
+  }>;
+};
+
+export type DiptychImage = {
+  _type: "diptychImage";
+  leftImage?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  leftAltText: {
+    ca?: string;
+    es?: string;
+    en?: string;
+  };
+  rightImage?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  rightAltText: {
+    ca?: string;
+    es?: string;
+    en?: string;
+  };
+};
+
+export type ProjectSummary = {
+  _type: "projectSummary";
+  number?: string;
+  title: string;
+  description?: string;
+};
+
+export type CoverImage = {
+  _type: "coverImage";
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  altText: {
+    ca?: string;
+    es?: string;
+    en?: string;
+  };
+  paddingTop?: "0" | "4" | "8" | "12" | "16" | "20" | "24" | "32" | "40" | "48" | "56" | "64";
+  paddingBottom?: "0" | "4" | "8" | "12" | "16" | "20" | "24" | "32" | "40" | "48" | "56" | "64";
+};
+
+export type Project = {
+  _id: string;
+  _type: "project";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title: string;
+  slug: Slug;
+  thumbnail?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  category?: "all" | "uni" | "pluri" | "equip";
+  builder?: Array<{
+    _key: string;
+  } & CoverImage | {
+    _key: string;
+  } & ProjectSummary | {
+    _key: string;
+  } & DiptychImage | {
+    _key: string;
+  } & TextBlock | {
+    _key: string;
+  } & ImageCarousel | {
+    _key: string;
+  } & ProjectInfo>;
+};
+
 export type About = {
   _type: "about";
   aboutText?: {
@@ -366,310 +589,6 @@ export type IntroHero = {
   filter?: boolean;
 };
 
-export type FeatureCard = {
-  _type: "featureCard";
-  theme?: "darkTheme" | "lightTheme";
-  paddingT?: 0 | 0.5 | 1 | 1.5 | 2 | 2.5 | 3 | 3.5 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 14 | 16 | 20 | 24 | 28 | 32 | 36 | 40 | 44 | 48 | 52 | 56 | 60 | 64 | 72 | 80 | 96;
-  paddingB?: 0 | 0.5 | 1 | 1.5 | 2 | 2.5 | 3 | 3.5 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 14 | 16 | 20 | 24 | 28 | 32 | 36 | 40 | 44 | 48 | 52 | 56 | 60 | 64 | 72 | 80 | 96;
-  mobilePaddingT?: 0 | 0.5 | 1 | 1.5 | 2 | 2.5 | 3 | 3.5 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 14 | 16 | 20 | 24 | 28 | 32 | 36 | 40 | 44 | 48 | 52 | 56 | 60 | 64 | 72 | 80 | 96;
-  mobilePaddingB?: 0 | 0.5 | 1 | 1.5 | 2 | 2.5 | 3 | 3.5 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 14 | 16 | 20 | 24 | 28 | 32 | 36 | 40 | 44 | 48 | 52 | 56 | 60 | 64 | 72 | 80 | 96;
-  textColor: Color;
-  variant: string;
-  title: string;
-  description: string;
-  price?: number;
-  cta?: {
-    text: string;
-    link: Link;
-    variant?: "buttonDark" | "buttonLight";
-  };
-  illustration?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: "image";
-  };
-  backgroundColor?: Color;
-};
-
-export type InfoCard = {
-  _type: "infoCard";
-  paddingT?: 0 | 0.5 | 1 | 1.5 | 2 | 2.5 | 3 | 3.5 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 14 | 16 | 20 | 24 | 28 | 32 | 36 | 40 | 44 | 48 | 52 | 56 | 60 | 64 | 72 | 80 | 96;
-  paddingB?: 0 | 0.5 | 1 | 1.5 | 2 | 2.5 | 3 | 3.5 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 14 | 16 | 20 | 24 | 28 | 32 | 36 | 40 | 44 | 48 | 52 | 56 | 60 | 64 | 72 | 80 | 96;
-  mobilePaddingT?: 0 | 0.5 | 1 | 1.5 | 2 | 2.5 | 3 | 3.5 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 14 | 16 | 20 | 24 | 28 | 32 | 36 | 40 | 44 | 48 | 52 | 56 | 60 | 64 | 72 | 80 | 96;
-  mobilePaddingB?: 0 | 0.5 | 1 | 1.5 | 2 | 2.5 | 3 | 3.5 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 14 | 16 | 20 | 24 | 28 | 32 | 36 | 40 | 44 | 48 | 52 | 56 | 60 | 64 | 72 | 80 | 96;
-  theme?: "darkTheme" | "lightTheme";
-  title?: string;
-  text?: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
-      _key: string;
-    }>;
-    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
-    listItem?: "bullet" | "number";
-    markDefs?: Array<{
-      linkType?: "href" | "page";
-      urlTitle?: string;
-      href?: string;
-      page?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "page";
-      };
-      openType?: "newTab" | "modal";
-      _type: "link";
-      _key: string;
-    }>;
-    level?: number;
-    _type: "block";
-    _key: string;
-  }>;
-  textColor?: Color;
-  image?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: "image";
-  };
-  imageAltText?: string;
-};
-
-export type InfoWithCTA = {
-  _type: "infoWithCTA";
-  theme?: "darkTheme" | "lightTheme";
-  paddingT?: 0 | 0.5 | 1 | 1.5 | 2 | 2.5 | 3 | 3.5 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 14 | 16 | 20 | 24 | 28 | 32 | 36 | 40 | 44 | 48 | 52 | 56 | 60 | 64 | 72 | 80 | 96;
-  paddingB?: 0 | 0.5 | 1 | 1.5 | 2 | 2.5 | 3 | 3.5 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 14 | 16 | 20 | 24 | 28 | 32 | 36 | 40 | 44 | 48 | 52 | 56 | 60 | 64 | 72 | 80 | 96;
-  mobilePaddingT?: 0 | 0.5 | 1 | 1.5 | 2 | 2.5 | 3 | 3.5 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 14 | 16 | 20 | 24 | 28 | 32 | 36 | 40 | 44 | 48 | 52 | 56 | 60 | 64 | 72 | 80 | 96;
-  mobilePaddingB?: 0 | 0.5 | 1 | 1.5 | 2 | 2.5 | 3 | 3.5 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 14 | 16 | 20 | 24 | 28 | 32 | 36 | 40 | 44 | 48 | 52 | 56 | 60 | 64 | 72 | 80 | 96;
-  firstColumnText: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
-      _key: string;
-    }>;
-    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
-    listItem?: "bullet" | "number";
-    markDefs?: Array<{
-      linkType?: "href" | "page";
-      urlTitle?: string;
-      href?: string;
-      page?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "page";
-      };
-      openType?: "newTab" | "modal";
-      _type: "link";
-      _key: string;
-    }>;
-    level?: number;
-    _type: "block";
-    _key: string;
-  }>;
-  secondColumnText: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
-      _key: string;
-    }>;
-    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
-    listItem?: "bullet" | "number";
-    markDefs?: Array<{
-      linkType?: "href" | "page";
-      urlTitle?: string;
-      href?: string;
-      page?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "page";
-      };
-      openType?: "newTab" | "modal";
-      _type: "link";
-      _key: string;
-    }>;
-    level?: number;
-    _type: "block";
-    _key: string;
-  }>;
-  textColor?: Color;
-  cta?: {
-    text: string;
-    link: Link;
-    variant?: "buttonDark" | "buttonLight";
-  };
-};
-
-export type CallToAction = {
-  _type: "callToAction";
-  heading: string;
-  text?: string;
-  buttonText?: string;
-  link?: Link;
-};
-
-export type MainHero = {
-  _type: "mainHero";
-  theme?: "darkTheme" | "lightTheme";
-  backgroundImage?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: "image";
-  };
-  backgroundImageAltText?: string;
-  logo?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: "image";
-  };
-  logoAltText?: string;
-};
-
-export type ImageTextBlock = {
-  _type: "imageTextBlock";
-  theme?: "darkTheme" | "lightTheme";
-  paddingT?: 0 | 4 | 8 | 12 | 16 | 20 | 24 | 32 | 40 | 48 | 56 | 64 | 80 | 96;
-  paddingB?: 0 | 4 | 8 | 12 | 16 | 20 | 24 | 32 | 40 | 48 | 56 | 64 | 80 | 96;
-  mobilePaddingT?: 0 | 0.5 | 1 | 1.5 | 2 | 2.5 | 3 | 3.5 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 14 | 16 | 20 | 24 | 28 | 32 | 36 | 40 | 44 | 48 | 52 | 56 | 60 | 64 | 72 | 80 | 96;
-  mobilePaddingB?: 0 | 0.5 | 1 | 1.5 | 2 | 2.5 | 3 | 3.5 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 14 | 16 | 20 | 24 | 28 | 32 | 36 | 40 | 44 | 48 | 52 | 56 | 60 | 64 | 72 | 80 | 96;
-  text?: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
-      _key: string;
-    }>;
-    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
-    listItem?: "bullet" | "number";
-    markDefs?: Array<{
-      linkType?: "href" | "page";
-      urlTitle?: string;
-      href?: string;
-      page?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "page";
-      };
-      openType?: "newTab" | "modal";
-      _type: "link";
-      _key: string;
-    }>;
-    level?: number;
-    _type: "block";
-    _key: string;
-  }>;
-  textColor?: Color;
-  images: Array<{
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: "image";
-    _key: string;
-  }>;
-  illustration?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: "image";
-  };
-  layout?: "leftImage" | "topText" | "leftTextImageIlustration" | "rightImageHoverText";
-  titleImage1?: string;
-  textImage1?: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
-      _key: string;
-    }>;
-    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
-    listItem?: "bullet" | "number";
-    markDefs?: Array<{
-      linkType?: "href" | "page";
-      urlTitle?: string;
-      href?: string;
-      page?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "page";
-      };
-      openType?: "newTab" | "modal";
-      _type: "link";
-      _key: string;
-    }>;
-    level?: number;
-    _type: "block";
-    _key: string;
-  }>;
-  titleImage2?: string;
-  textImage2?: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
-      _key: string;
-    }>;
-    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
-    listItem?: "bullet" | "number";
-    markDefs?: Array<{
-      linkType?: "href" | "page";
-      urlTitle?: string;
-      href?: string;
-      page?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "page";
-      };
-      openType?: "newTab" | "modal";
-      _type: "link";
-      _key: string;
-    }>;
-    level?: number;
-    _type: "block";
-    _key: string;
-  }>;
-};
-
 export type BlockContent = Array<{
   children?: Array<{
     marks?: Array<string>;
@@ -710,18 +629,6 @@ export type Page = {
   subheading?: string;
   pageBackgroundColor?: Color;
   pageBuilder?: Array<{
-    _key: string;
-  } & CallToAction | {
-    _key: string;
-  } & MainHero | {
-    _key: string;
-  } & InfoWithCTA | {
-    _key: string;
-  } & ImageTextBlock | {
-    _key: string;
-  } & InfoCard | {
-    _key: string;
-  } & FeatureCard | {
     _key: string;
   } & IntroHero | {
     _key: string;
@@ -999,7 +906,7 @@ export type SanityAssistSchemaTypeField = {
   } & SanityAssistInstruction>;
 };
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | About | IntroHero | FeatureCard | InfoCard | InfoWithCTA | CallToAction | MainHero | ImageTextBlock | BlockContent | Page | Link | Slug | Settings | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Color | RgbaColor | HsvaColor | HslaColor | SanityAssistInstructionTask | SanityAssistTaskStatus | SanityAssistSchemaTypeAnnotations | SanityAssistOutputType | SanityAssistOutputField | SanityAssistInstructionContext | AssistInstructionContext | SanityAssistInstructionUserInput | SanityAssistInstructionPrompt | SanityAssistInstructionFieldRef | SanityAssistInstruction | SanityAssistSchemaTypeField;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | ProjectInfo | TextBlock | ImageCarousel | DiptychImage | ProjectSummary | CoverImage | Project | About | IntroHero | BlockContent | Page | Link | Slug | Settings | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Color | RgbaColor | HsvaColor | HslaColor | SanityAssistInstructionTask | SanityAssistTaskStatus | SanityAssistSchemaTypeAnnotations | SanityAssistOutputType | SanityAssistOutputField | SanityAssistInstructionContext | AssistInstructionContext | SanityAssistInstructionUserInput | SanityAssistInstructionPrompt | SanityAssistInstructionFieldRef | SanityAssistInstruction | SanityAssistSchemaTypeField;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./sanity/lib/queries.ts
 // Variable: settingsQuery
@@ -1306,284 +1213,6 @@ export type GetPageQueryResult = {
     };
   } | {
     _key: string;
-    _type: "callToAction";
-    heading: string;
-    text?: string;
-    buttonText?: string;
-    link: {
-      _type: "link";
-      linkType?: "href" | "page";
-      urlTitle?: string;
-      href?: string;
-      page: string | null;
-      openType?: "modal" | "newTab";
-      post: null;
-    } | null;
-  } | {
-    _key: string;
-    _type: "featureCard";
-    theme?: "darkTheme" | "lightTheme";
-    paddingT?: 0.5 | 0 | 1.5 | 1 | 10 | 11 | 12 | 14 | 16 | 2.5 | 2 | 20 | 24 | 28 | 3.5 | 3 | 32 | 36 | 4 | 40 | 44 | 48 | 5 | 52 | 56 | 6 | 60 | 64 | 7 | 72 | 8 | 80 | 9 | 96;
-    paddingB?: 0.5 | 0 | 1.5 | 1 | 10 | 11 | 12 | 14 | 16 | 2.5 | 2 | 20 | 24 | 28 | 3.5 | 3 | 32 | 36 | 4 | 40 | 44 | 48 | 5 | 52 | 56 | 6 | 60 | 64 | 7 | 72 | 8 | 80 | 9 | 96;
-    mobilePaddingT?: 0.5 | 0 | 1.5 | 1 | 10 | 11 | 12 | 14 | 16 | 2.5 | 2 | 20 | 24 | 28 | 3.5 | 3 | 32 | 36 | 4 | 40 | 44 | 48 | 5 | 52 | 56 | 6 | 60 | 64 | 7 | 72 | 8 | 80 | 9 | 96;
-    mobilePaddingB?: 0.5 | 0 | 1.5 | 1 | 10 | 11 | 12 | 14 | 16 | 2.5 | 2 | 20 | 24 | 28 | 3.5 | 3 | 32 | 36 | 4 | 40 | 44 | 48 | 5 | 52 | 56 | 6 | 60 | 64 | 7 | 72 | 8 | 80 | 9 | 96;
-    textColor: Color;
-    variant: string;
-    title: string;
-    description: string;
-    price?: number;
-    cta?: {
-      text: string;
-      link: Link;
-      variant?: "buttonDark" | "buttonLight";
-    };
-    illustration?: {
-      asset?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-      };
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
-      _type: "image";
-    };
-    backgroundColor?: Color;
-  } | {
-    _key: string;
-    _type: "imageTextBlock";
-    theme?: "darkTheme" | "lightTheme";
-    paddingT?: 0 | 12 | 16 | 20 | 24 | 32 | 4 | 40 | 48 | 56 | 64 | 8 | 80 | 96;
-    paddingB?: 0 | 12 | 16 | 20 | 24 | 32 | 4 | 40 | 48 | 56 | 64 | 8 | 80 | 96;
-    mobilePaddingT?: 0.5 | 0 | 1.5 | 1 | 10 | 11 | 12 | 14 | 16 | 2.5 | 2 | 20 | 24 | 28 | 3.5 | 3 | 32 | 36 | 4 | 40 | 44 | 48 | 5 | 52 | 56 | 6 | 60 | 64 | 7 | 72 | 8 | 80 | 9 | 96;
-    mobilePaddingB?: 0.5 | 0 | 1.5 | 1 | 10 | 11 | 12 | 14 | 16 | 2.5 | 2 | 20 | 24 | 28 | 3.5 | 3 | 32 | 36 | 4 | 40 | 44 | 48 | 5 | 52 | 56 | 6 | 60 | 64 | 7 | 72 | 8 | 80 | 9 | 96;
-    text?: Array<{
-      children?: Array<{
-        marks?: Array<string>;
-        text?: string;
-        _type: "span";
-        _key: string;
-      }>;
-      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
-      listItem?: "bullet" | "number";
-      markDefs?: Array<{
-        linkType?: "href" | "page";
-        urlTitle?: string;
-        href?: string;
-        page?: {
-          _ref: string;
-          _type: "reference";
-          _weak?: boolean;
-          [internalGroqTypeReferenceTo]?: "page";
-        };
-        openType?: "modal" | "newTab";
-        _type: "link";
-        _key: string;
-      }>;
-      level?: number;
-      _type: "block";
-      _key: string;
-    }>;
-    textColor?: Color;
-    images: Array<{
-      asset?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-      };
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
-      _type: "image";
-      _key: string;
-    }>;
-    illustration?: {
-      asset?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-      };
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
-      _type: "image";
-    };
-    layout?: "leftImage" | "leftTextImageIlustration" | "rightImageHoverText" | "topText";
-    titleImage1?: string;
-    textImage1?: Array<{
-      children?: Array<{
-        marks?: Array<string>;
-        text?: string;
-        _type: "span";
-        _key: string;
-      }>;
-      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
-      listItem?: "bullet" | "number";
-      markDefs?: Array<{
-        linkType?: "href" | "page";
-        urlTitle?: string;
-        href?: string;
-        page?: {
-          _ref: string;
-          _type: "reference";
-          _weak?: boolean;
-          [internalGroqTypeReferenceTo]?: "page";
-        };
-        openType?: "modal" | "newTab";
-        _type: "link";
-        _key: string;
-      }>;
-      level?: number;
-      _type: "block";
-      _key: string;
-    }>;
-    titleImage2?: string;
-    textImage2?: Array<{
-      children?: Array<{
-        marks?: Array<string>;
-        text?: string;
-        _type: "span";
-        _key: string;
-      }>;
-      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
-      listItem?: "bullet" | "number";
-      markDefs?: Array<{
-        linkType?: "href" | "page";
-        urlTitle?: string;
-        href?: string;
-        page?: {
-          _ref: string;
-          _type: "reference";
-          _weak?: boolean;
-          [internalGroqTypeReferenceTo]?: "page";
-        };
-        openType?: "modal" | "newTab";
-        _type: "link";
-        _key: string;
-      }>;
-      level?: number;
-      _type: "block";
-      _key: string;
-    }>;
-  } | {
-    _key: string;
-    _type: "infoCard";
-    paddingT?: 0.5 | 0 | 1.5 | 1 | 10 | 11 | 12 | 14 | 16 | 2.5 | 2 | 20 | 24 | 28 | 3.5 | 3 | 32 | 36 | 4 | 40 | 44 | 48 | 5 | 52 | 56 | 6 | 60 | 64 | 7 | 72 | 8 | 80 | 9 | 96;
-    paddingB?: 0.5 | 0 | 1.5 | 1 | 10 | 11 | 12 | 14 | 16 | 2.5 | 2 | 20 | 24 | 28 | 3.5 | 3 | 32 | 36 | 4 | 40 | 44 | 48 | 5 | 52 | 56 | 6 | 60 | 64 | 7 | 72 | 8 | 80 | 9 | 96;
-    mobilePaddingT?: 0.5 | 0 | 1.5 | 1 | 10 | 11 | 12 | 14 | 16 | 2.5 | 2 | 20 | 24 | 28 | 3.5 | 3 | 32 | 36 | 4 | 40 | 44 | 48 | 5 | 52 | 56 | 6 | 60 | 64 | 7 | 72 | 8 | 80 | 9 | 96;
-    mobilePaddingB?: 0.5 | 0 | 1.5 | 1 | 10 | 11 | 12 | 14 | 16 | 2.5 | 2 | 20 | 24 | 28 | 3.5 | 3 | 32 | 36 | 4 | 40 | 44 | 48 | 5 | 52 | 56 | 6 | 60 | 64 | 7 | 72 | 8 | 80 | 9 | 96;
-    theme?: "darkTheme" | "lightTheme";
-    title?: string;
-    text?: Array<{
-      children?: Array<{
-        marks?: Array<string>;
-        text?: string;
-        _type: "span";
-        _key: string;
-      }>;
-      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
-      listItem?: "bullet" | "number";
-      markDefs?: Array<{
-        linkType?: "href" | "page";
-        urlTitle?: string;
-        href?: string;
-        page?: {
-          _ref: string;
-          _type: "reference";
-          _weak?: boolean;
-          [internalGroqTypeReferenceTo]?: "page";
-        };
-        openType?: "modal" | "newTab";
-        _type: "link";
-        _key: string;
-      }>;
-      level?: number;
-      _type: "block";
-      _key: string;
-    }>;
-    textColor?: Color;
-    image?: {
-      asset?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-      };
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
-      _type: "image";
-    };
-    imageAltText?: string;
-  } | {
-    _key: string;
-    _type: "infoWithCTA";
-    theme?: "darkTheme" | "lightTheme";
-    paddingT?: 0.5 | 0 | 1.5 | 1 | 10 | 11 | 12 | 14 | 16 | 2.5 | 2 | 20 | 24 | 28 | 3.5 | 3 | 32 | 36 | 4 | 40 | 44 | 48 | 5 | 52 | 56 | 6 | 60 | 64 | 7 | 72 | 8 | 80 | 9 | 96;
-    paddingB?: 0.5 | 0 | 1.5 | 1 | 10 | 11 | 12 | 14 | 16 | 2.5 | 2 | 20 | 24 | 28 | 3.5 | 3 | 32 | 36 | 4 | 40 | 44 | 48 | 5 | 52 | 56 | 6 | 60 | 64 | 7 | 72 | 8 | 80 | 9 | 96;
-    mobilePaddingT?: 0.5 | 0 | 1.5 | 1 | 10 | 11 | 12 | 14 | 16 | 2.5 | 2 | 20 | 24 | 28 | 3.5 | 3 | 32 | 36 | 4 | 40 | 44 | 48 | 5 | 52 | 56 | 6 | 60 | 64 | 7 | 72 | 8 | 80 | 9 | 96;
-    mobilePaddingB?: 0.5 | 0 | 1.5 | 1 | 10 | 11 | 12 | 14 | 16 | 2.5 | 2 | 20 | 24 | 28 | 3.5 | 3 | 32 | 36 | 4 | 40 | 44 | 48 | 5 | 52 | 56 | 6 | 60 | 64 | 7 | 72 | 8 | 80 | 9 | 96;
-    firstColumnText: Array<{
-      children?: Array<{
-        marks?: Array<string>;
-        text?: string;
-        _type: "span";
-        _key: string;
-      }>;
-      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
-      listItem?: "bullet" | "number";
-      markDefs?: Array<{
-        linkType?: "href" | "page";
-        urlTitle?: string;
-        href?: string;
-        page?: {
-          _ref: string;
-          _type: "reference";
-          _weak?: boolean;
-          [internalGroqTypeReferenceTo]?: "page";
-        };
-        openType?: "modal" | "newTab";
-        _type: "link";
-        _key: string;
-      }>;
-      level?: number;
-      _type: "block";
-      _key: string;
-    }>;
-    secondColumnText: Array<{
-      children?: Array<{
-        marks?: Array<string>;
-        text?: string;
-        _type: "span";
-        _key: string;
-      }>;
-      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
-      listItem?: "bullet" | "number";
-      markDefs?: Array<{
-        linkType?: "href" | "page";
-        urlTitle?: string;
-        href?: string;
-        page?: {
-          _ref: string;
-          _type: "reference";
-          _weak?: boolean;
-          [internalGroqTypeReferenceTo]?: "page";
-        };
-        openType?: "modal" | "newTab";
-        _type: "link";
-        _key: string;
-      }>;
-      level?: number;
-      _type: "block";
-      _key: string;
-    }>;
-    textColor?: Color;
-    cta?: {
-      text: string;
-      link: Link;
-      variant?: "buttonDark" | "buttonLight";
-    };
-  } | {
-    _key: string;
     _type: "introHero";
     desktopBackgroundImages?: Array<{
       image?: {
@@ -1628,34 +1257,6 @@ export type GetPageQueryResult = {
     };
     logoAltText?: string;
     filter?: boolean;
-  } | {
-    _key: string;
-    _type: "mainHero";
-    theme?: "darkTheme" | "lightTheme";
-    backgroundImage?: {
-      asset?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-      };
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
-      _type: "image";
-    };
-    backgroundImageAltText?: string;
-    logo?: {
-      asset?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-      };
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
-      _type: "image";
-    };
-    logoAltText?: string;
   }> | null;
 } | null;
 // Variable: pagesSlugs

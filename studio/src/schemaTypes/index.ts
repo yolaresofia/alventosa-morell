@@ -1,15 +1,16 @@
 import {page} from './documents/page'
-import {callToAction} from './objects/callToAction'
-import {mainHero} from './objects/mainHero'
 import {settings} from './singletons/settings'
 import {link} from './objects/link'
 import {blockContent} from './objects/blockContent'
-import { infoWithCTA } from './objects/infoWithCTA'
-import { imageTextBlock } from './objects/imageTextBlock'
-import { infoCard } from './objects/infoCard'
-import { featureCard } from './objects/featureCard'
 import { introHero } from './objects/introHero'
 import { about } from './objects/about'
+import { project } from './documents/project'
+import { coverImage } from './objects/coverImage'
+import { projectSummary } from './objects/projectSummary'
+import { diptychImage } from './objects/diptychImage'
+import { imageCarousel } from './objects/imageCarousel'
+import { textBlock } from './objects/textBlock'
+import { projectInfo } from './objects/projectInfo'
 
 // Export an array of all the schema types.  This is used in the Sanity Studio configuration. https://www.sanity.io/docs/schema-types
 
@@ -20,13 +21,14 @@ export const schemaTypes = [
   page,
   // Objects
   blockContent,
-  imageTextBlock,
-  mainHero,
-  callToAction,
-  infoWithCTA,
   link,
-  infoCard,
-  featureCard,
   introHero,
-  about
+  about,
+  project,
+  coverImage,
+  projectSummary,
+  diptychImage,
+  imageCarousel,
+  textBlock,
+  projectInfo
 ]

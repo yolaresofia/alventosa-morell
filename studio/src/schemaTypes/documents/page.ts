@@ -48,12 +48,6 @@ export const page = defineType({
       title: 'Constructor de página',
       type: 'array',
       of: [
-        {type: 'callToAction'},
-        {type: 'mainHero'},
-        {type: 'infoWithCTA'},
-        {type: 'imageTextBlock'},
-        {type: 'infoCard'},
-        {type: 'featureCard'},
         {type: 'introHero'},
         {type: 'about'},
       ],

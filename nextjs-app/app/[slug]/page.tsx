@@ -6,7 +6,6 @@ import { sanityFetch } from "@/sanity/lib/live";
 import { getPageQuery, pagesSlugs } from "@/sanity/lib/queries";
 import { Page as PageType } from "@/sanity.types";
 import { client } from "@/sanity/lib/client";
-import { redirect } from "next/navigation";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -56,7 +55,6 @@ export default async function Page(props: Props) {
     { slug: params.slug }
   );
 
-  if (!page?._id) redirect("/");
   return (
     <div
       className={`bg-[${page?.pageBackgroundColor?.hex}]`}

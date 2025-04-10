@@ -1,12 +1,6 @@
 import React from "react";
 
-import Cta from "@/app/components/Cta";
 import { dataAttr } from "@/sanity/lib/utils";
-import FeatureCard from "./FeatureCard";
-import MainHero from "./MainHero";
-import InfoCard from "./InfoCard";
-import ImageTextBlock from "./ImageTextBlock";
-import InfoWithCTA from "./InfoWithCTA";
 import IntroHero from "./IntroHero";
 import About from "./About";
 
@@ -27,14 +21,8 @@ type BlockProps = {
 };
 
 const Blocks: BlocksType = {
-  callToAction: Cta,
-  mainHero: MainHero,
-  infoWithCTA: InfoWithCTA,
-  featureCard: FeatureCard,
-  infoCard: InfoCard,
-  imageTextBlock: ImageTextBlock,
   introHero: IntroHero,
-  about: About
+  about: About,
 };
 
 /**
