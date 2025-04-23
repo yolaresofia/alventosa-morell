@@ -4,15 +4,15 @@ import {link} from './objects/link'
 import {blockContent} from './objects/blockContent'
 import { introHero } from './objects/introHero'
 import { about } from './objects/about'
-import { project } from './documents/project'
 import { coverImage } from './objects/coverImage'
 import { projectSummary } from './objects/projectSummary'
 import { diptychImage } from './objects/diptychImage'
 import { imageCarousel } from './objects/imageCarousel'
 import { textBlock } from './objects/textBlock'
 import { projectInfo } from './objects/projectInfo'
-
-// Export an array of all the schema types.  This is used in the Sanity Studio configuration. https://www.sanity.io/docs/schema-types
+import { projectViews } from './objects/projectViews'
+import { projectMin } from './objects/projectMin'
+import { project } from './documents/project'
 
 export const schemaTypes = [
   // Singletons
@@ -24,11 +24,13 @@ export const schemaTypes = [
   link,
   introHero,
   about,
-  project,
   coverImage,
   projectSummary,
   diptychImage,
   imageCarousel,
   textBlock,
-  projectInfo
+  projectInfo,
+  projectViews,
+  projectMin,
+  project
 ]

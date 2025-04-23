@@ -10,7 +10,7 @@ export const projectSummary = defineType({
     defineField({
       name: 'number',
       title: 'Número',
-      type: 'string', // You can use 'number' if it's guaranteed numeric
+      type: 'string',
     }),
     defineField({
       name: 'title',

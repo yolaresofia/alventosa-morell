@@ -61,3 +61,18 @@ export const getProjectQuery = defineQuery(`
     },
   }
 `);
+
+export const getProjectViewsQuery = defineQuery(`
+  *[_type == "projectViews"][0]{
+    projects[] {
+      projectName,
+      projectNumber,
+      program,
+      location,
+      area,
+      year,
+      miniaturePhoto,
+      "slug": projectReference->slug.current
+    }
+  }
+`);

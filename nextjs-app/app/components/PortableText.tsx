@@ -1,13 +1,3 @@
-/**
- * This component uses Portable Text to render a post body.
- *
- * You can learn more about Portable Text on:
- * https://www.sanity.io/docs/block-content
- * https://github.com/portabletext/react-portabletext
- * https://portabletext.org/
- *
- */
-
 import {
   PortableText,
   type PortableTextComponents,
@@ -26,7 +16,6 @@ export default function CustomPortableText({
   const components: PortableTextComponents = {
     block: {
       h1: ({ children, value }) => (
-        // Add an anchor to the h1
         <h1 className="group relative">
           {children}
           <a
@@ -51,7 +40,6 @@ export default function CustomPortableText({
         </h1>
       ),
       h2: ({ children, value }) => {
-        // Add an anchor to the h2
         return (
           <h2 className="group relative">
             {children}

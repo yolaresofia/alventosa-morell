@@ -1,11 +1,6 @@
 import {defineField, defineType} from 'sanity'
 import {DocumentIcon} from '@sanity/icons'
 
-/**
- * Page schema.  Define and edit the fields for the 'page' content type.
- * Learn more: https://www.sanity.io/docs/schema-types
- */
-
 export const page = defineType({
   name: 'page',
   title: 'Página',
@@ -50,10 +45,10 @@ export const page = defineType({
       of: [
         {type: 'introHero'},
         {type: 'about'},
+        {type: 'projectViews'},
       ],
       options: {
         insertMenu: {
-          // Configure the "Add Item" menu to display a thumbnail preview of the content type. https://www.sanity.io/docs/array-type#efb1fe03459d
           views: [
             {
               name: 'grid',

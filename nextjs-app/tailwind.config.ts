@@ -4,9 +4,9 @@ import typography from "@tailwindcss/typography";
 export default {
   content: ["./app/**/*.{ts,tsx}", "./sanity/**/*.{ts,tsx}"],
   safelist: [
-    { pattern: /^text-/ }, // Keep all `text-` classes
-    { pattern: /^bg-/ }, // Keep all `bg-` classes
-    { pattern: /^border-/ }, // Keep all `border-` classes
+    { pattern: /^text-/ },
+    { pattern: /^bg-/ },
+    { pattern: /^border-/ },
   ],
   theme: {
     container: {

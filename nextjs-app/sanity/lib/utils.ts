@@ -9,7 +9,6 @@ const imageBuilder = createImageUrlBuilder({
 });
 
 export const urlForImage = (source: any) => {
-  // Ensure that source image contains a valid reference
   if (!source?.asset?._ref) {
     return undefined;
   }
@@ -24,11 +23,9 @@ export function resolveOpenGraphImage(image: any, width = 1200, height = 627) {
   return { url, alt: image?.alt as string, width, height };
 }
 
-// Depending on the type of link, we need to fetch the corresponding page, post, or URL.  Otherwise return null.
 export function linkResolver(link: Link | undefined) {
   if (!link) return null;
 
-  // If linkType is not set but href is, lets set linkType to "href".  This comes into play when pasting links into the portable text editor because a link type is not assumed.
   if (!link.linkType && link.href) {
     link.linkType = "href";
   }

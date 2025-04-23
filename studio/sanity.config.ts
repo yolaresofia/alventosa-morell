@@ -1,8 +1,3 @@
-/**
- * This config is used to configure your Sanity Studio.
- * Learn more: https://www.sanity.io/docs/configuration
- */
-
 import {defineConfig} from 'sanity'
 import {structureTool} from 'sanity/structure'
 import {visionTool} from '@sanity/vision'
@@ -18,34 +13,30 @@ import {
 import {assist} from '@sanity/assist'
 import {colorInput} from '@sanity/color-input'
 
-// Environment variables for project configuration
 const projectId = process.env.SANITY_STUDIO_PROJECT_ID || 'your-projectID'
 const dataset = process.env.SANITY_STUDIO_DATASET || 'staging'
 
-// URL for preview functionality, defaults to localhost:3000 if not set
 const SANITY_STUDIO_PREVIEW_URL = process.env.SANITY_STUDIO_PREVIEW_URL || 'http://localhost:3000'
 
-// Define the home location for the presentation tool
+
 const homeLocation = {
   title: 'Home',
   href: '/',
 } satisfies DocumentLocation
 
-// resolveHref() is a convenience function that resolves the URL
-// path for different document types and used in the presentation tool.
 function resolveHref(documentType?: string, slug?: string): string | undefined {
   switch (documentType) {
     case 'page':
-      return slug === '/' ? '/' : `/${slug}` // Ensure the homepage returns "/"
+      return slug === '/' ? '/' : `/${slug}`;
     case 'post':
-      return slug ? `/posts/${slug}` : undefined
+      return slug ? `/posts/${slug}` : undefined;
+    case 'project':
+      return slug ? `/projects/${slug}` : undefined;
     default:
-      console.warn('Invalid document type:', documentType)
-      return undefined
+      console.warn('Invalid document type:', documentType);
+      return undefined;
   }
 }
-
-// Main Sanity configuration
 export default defineConfig({
   name: 'default',
   title: 'ALVENTOSA MORELL dev studio',
@@ -54,7 +45,6 @@ export default defineConfig({
   dataset,
 
   plugins: [
-    // Presentation tool configuration for Visual Editing
     presentationTool({
       previewUrl: {
         origin: SANITY_STUDIO_PREVIEW_URL,
@@ -63,23 +53,24 @@ export default defineConfig({
         },
       },
       resolve: {
-        // The Main Document Resolver API provides a method of resolving a main document from a given route or route pattern. https://www.sanity.io/docs/presentation-resolver-api#57720a5678d9
         mainDocuments: defineDocuments([
           {
-            route: '/', // Route for the homepage
-            filter: `_type == "page" && slug.current == "/"`, // Matches the page with the slug "/"
+            route: '/',
+            filter: `_type == "page" && slug.current == "/"`,
           },
           {
-            route: '/:slug', // Route for other pages
+            route: '/:slug',
             filter: `_type == "page" && slug.current == $slug || _id == $slug`,
           },
           {
-            route: '/posts/:slug', // Route for posts
+            route: '/posts/:slug',
             filter: `_type == "post" && slug.current == $slug || _id == $slug`,
           },
+          {
+            route: '/projects/:slug',
+            filter: `_type == "project" && slug.current == $slug || _id == $slug`,
+          },
         ]),
-
-        // Locations Resolver API allows you to define where data is being used in your application. https://www.sanity.io/docs/presentation-resolver-api#8d8bca7bfcd7
         locations: {
           settings: defineLocations({
             locations: [homeLocation],
@@ -100,20 +91,31 @@ export default defineConfig({
               ],
             }),
           }),
+          project: defineLocations({
+            select: {
+              name: 'title',
+              slug: 'slug.current',
+            },
+            resolve: (doc) => ({
+              locations: [
+                {
+                  title: doc?.name || 'Projecte sense títol',
+                  href: resolveHref('project', doc?.slug)!,
+                },
+              ],
+            }),
+          }),
         },
       },
     }),
     structureTool({
-      structure, // Custom studio structure configuration, imported from ./src/structure.ts
+      structure,
     }),
-    // Additional plugins for enhanced functionality
     unsplashImageAsset(),
     assist(),
     visionTool(),
     colorInput(),
   ],
-
-  // Schema configuration, imported from ./src/schemaTypes/index.ts
   schema: {
     types: schemaTypes,
   },

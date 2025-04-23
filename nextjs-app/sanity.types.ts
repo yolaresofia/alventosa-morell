@@ -68,6 +68,40 @@ export type Geopoint = {
   alt?: number;
 };
 
+export type ProjectViews = {
+  _type: "projectViews";
+  projects?: Array<{
+    _key: string;
+  } & ProjectMin>;
+};
+
+export type ProjectMin = {
+  _type: "projectMin";
+  projectNumber?: string;
+  projectName?: string;
+  program?: string;
+  location?: string;
+  area?: string;
+  year?: string;
+  miniaturePhoto?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  projectReference?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "project";
+  };
+};
+
 export type ProjectInfo = {
   _type: "projectInfo";
   description?: {
@@ -163,7 +197,11 @@ export type ProjectInfo = {
 
 export type TextBlock = {
   _type: "textBlock";
-  text: string;
+  text: {
+    ca?: string;
+    es?: string;
+    en?: string;
+  };
   alignment?: "left" | "right";
 };
 
@@ -225,6 +263,8 @@ export type DiptychImage = {
     es?: string;
     en?: string;
   };
+  paddingTop?: "0" | "4" | "8" | "12" | "16" | "20" | "24" | "32" | "40" | "48" | "56" | "64";
+  paddingBottom?: "0" | "4" | "8" | "12" | "16" | "20" | "24" | "32" | "40" | "48" | "56" | "64";
 };
 
 export type ProjectSummary = {
@@ -632,7 +672,9 @@ export type Page = {
     _key: string;
   } & IntroHero | {
     _key: string;
-  } & About>;
+  } & About | {
+    _key: string;
+  } & ProjectViews>;
 };
 
 export type Link = {
@@ -906,7 +948,7 @@ export type SanityAssistSchemaTypeField = {
   } & SanityAssistInstruction>;
 };
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | ProjectInfo | TextBlock | ImageCarousel | DiptychImage | ProjectSummary | CoverImage | Project | About | IntroHero | BlockContent | Page | Link | Slug | Settings | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Color | RgbaColor | HsvaColor | HslaColor | SanityAssistInstructionTask | SanityAssistTaskStatus | SanityAssistSchemaTypeAnnotations | SanityAssistOutputType | SanityAssistOutputField | SanityAssistInstructionContext | AssistInstructionContext | SanityAssistInstructionUserInput | SanityAssistInstructionPrompt | SanityAssistInstructionFieldRef | SanityAssistInstruction | SanityAssistSchemaTypeField;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | ProjectViews | ProjectMin | ProjectInfo | TextBlock | ImageCarousel | DiptychImage | ProjectSummary | CoverImage | Project | About | IntroHero | BlockContent | Page | Link | Slug | Settings | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Color | RgbaColor | HsvaColor | HslaColor | SanityAssistInstructionTask | SanityAssistTaskStatus | SanityAssistSchemaTypeAnnotations | SanityAssistOutputType | SanityAssistOutputField | SanityAssistInstructionContext | AssistInstructionContext | SanityAssistInstructionUserInput | SanityAssistInstructionPrompt | SanityAssistInstructionFieldRef | SanityAssistInstruction | SanityAssistSchemaTypeField;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./sanity/lib/queries.ts
 // Variable: settingsQuery
@@ -1257,6 +1299,12 @@ export type GetPageQueryResult = {
     };
     logoAltText?: string;
     filter?: boolean;
+  } | {
+    _key: string;
+    _type: "projectViews";
+    projects?: Array<{
+      _key: string;
+    } & ProjectMin>;
   }> | null;
 } | null;
 // Variable: pagesSlugs
@@ -1264,6 +1312,207 @@ export type GetPageQueryResult = {
 export type PagesSlugsResult = Array<{
   slug: string | null;
 }>;
+// Variable: getProjectQuery
+// Query: *[_type == 'project' && slug.current == $slug][0]{    _id,    _type,    title,    slug,    category,    "builder": builder[]{      ...    },  }
+export type GetProjectQueryResult = {
+  _id: string;
+  _type: "project";
+  title: string;
+  slug: Slug;
+  category: "all" | "equip" | "pluri" | "uni" | null;
+  builder: Array<{
+    _key: string;
+    _type: "coverImage";
+    image?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+    altText: {
+      ca?: string;
+      es?: string;
+      en?: string;
+    };
+    paddingTop?: "0" | "12" | "16" | "20" | "24" | "32" | "4" | "40" | "48" | "56" | "64" | "8";
+    paddingBottom?: "0" | "12" | "16" | "20" | "24" | "32" | "4" | "40" | "48" | "56" | "64" | "8";
+  } | {
+    _key: string;
+    _type: "diptychImage";
+    leftImage?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+    leftAltText: {
+      ca?: string;
+      es?: string;
+      en?: string;
+    };
+    rightImage?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+    rightAltText: {
+      ca?: string;
+      es?: string;
+      en?: string;
+    };
+    paddingTop?: "0" | "12" | "16" | "20" | "24" | "32" | "4" | "40" | "48" | "56" | "64" | "8";
+    paddingBottom?: "0" | "12" | "16" | "20" | "24" | "32" | "4" | "40" | "48" | "56" | "64" | "8";
+  } | {
+    _key: string;
+    _type: "imageCarousel";
+    images: Array<{
+      image: {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      };
+      altText: {
+        ca?: string;
+        es?: string;
+        en?: string;
+      };
+      _type: "imageWithAltText";
+      _key: string;
+    }>;
+  } | {
+    _key: string;
+    _type: "projectInfo";
+    description?: {
+      ca?: string;
+      es?: string;
+      en?: string;
+    };
+    project?: {
+      label?: {
+        ca?: string;
+        es?: string;
+        en?: string;
+      };
+      value?: {
+        ca?: string;
+        es?: string;
+        en?: string;
+      };
+    };
+    year?: {
+      label?: {
+        ca?: string;
+        es?: string;
+        en?: string;
+      };
+      value?: string;
+    };
+    location?: {
+      label?: {
+        ca?: string;
+        es?: string;
+        en?: string;
+      };
+      value?: {
+        ca?: string;
+        es?: string;
+        en?: string;
+      };
+    };
+    program?: {
+      label?: {
+        ca?: string;
+        es?: string;
+        en?: string;
+      };
+      value?: {
+        ca?: string;
+        es?: string;
+        en?: string;
+      };
+    };
+    area?: {
+      label?: {
+        ca?: string;
+        es?: string;
+        en?: string;
+      };
+      value?: string;
+    };
+    authors?: {
+      label?: {
+        ca?: string;
+        es?: string;
+        en?: string;
+      };
+      value?: {
+        ca?: string;
+        es?: string;
+        en?: string;
+      };
+    };
+    team?: {
+      label?: {
+        ca?: string;
+        es?: string;
+        en?: string;
+      };
+      value?: {
+        ca?: string;
+        es?: string;
+        en?: string;
+      };
+    };
+    photographer?: {
+      label?: {
+        ca?: string;
+        es?: string;
+        en?: string;
+      };
+      value?: string;
+    };
+  } | {
+    _key: string;
+    _type: "projectSummary";
+    number?: string;
+    title: string;
+    description?: string;
+  } | {
+    _key: string;
+    _type: "textBlock";
+    text: {
+      ca?: string;
+      es?: string;
+      en?: string;
+    };
+    alignment?: "left" | "right";
+  }> | null;
+} | null;
+// Variable: getProjectViewsQuery
+// Query: *[_type == "projectViews"][0]{    projects[] {      projectName,      projectNumber,      program,      location,      area,      year,      miniaturePhoto,      "slug": projectReference->slug.current    }  }
+export type GetProjectViewsQueryResult = null;
 
 // Query TypeMap
 import "@sanity/client";
@@ -1272,5 +1521,7 @@ declare module "@sanity/client" {
     "*[_type == \"settings\"][0]{\n    ...,\n      mainNavigation {\n        ...,\n      \"darkLogo\": darkLogo.asset->,\n      \"lightLogo\": lightLogo.asset->,\n      navLinks[]{\n        ...,\n        page->}\n    },\n  }": SettingsQueryResult;
     "\n  *[_type == 'page' && slug.current == $slug][0]{\n    _id,\n    _type,\n    name,\n    slug,\n    heading,\n    subheading,\n    pageBackgroundColor,\n    \"pageBuilder\": pageBuilder[]{\n      ...,\n      _type == \"callToAction\" => {\n        ...,\n        \n  link {\n      ...,\n      _type == \"link\" => {\n        \"page\": page->slug.current,\n        \"post\": post->slug.current\n      }\n  }\n,\n      },\n      _type == \"introHero\" => {\n        ...\n      }\n    },\n  }\n": GetPageQueryResult;
     "\n  *[_type == \"page\" && defined(slug.current)]\n  {\"slug\": slug.current}\n": PagesSlugsResult;
+    "\n  *[_type == 'project' && slug.current == $slug][0]{\n    _id,\n    _type,\n    title,\n    slug,\n    category,\n    \"builder\": builder[]{\n      ...\n    },\n  }\n": GetProjectQueryResult;
+    "\n  *[_type == \"projectViews\"][0]{\n    projects[] {\n      projectName,\n      projectNumber,\n      program,\n      location,\n      area,\n      year,\n      miniaturePhoto,\n      \"slug\": projectReference->slug.current\n    }\n  }\n": GetProjectViewsQueryResult;
   }
 }

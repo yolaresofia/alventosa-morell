@@ -1,3 +1,4 @@
+"use client";
 import { useState } from "react";
 import { getTranslation } from "../utils/translations";
 import { urlForImage } from "@/sanity/lib/utils";
@@ -19,7 +20,7 @@ export const CoverImage = ({ block }: CoverImageProps) => {
 
   return (
     <div
-      className={`w-full h-[60vh] bg-center bg-cover ${pt} ${pb}`}
+      className={`w-full h-screen bg-center bg-cover ${pt} ${pb}`}
       style={{ backgroundImage: `url(${imageUrl})` }}
       role="img"
       aria-label={alt}

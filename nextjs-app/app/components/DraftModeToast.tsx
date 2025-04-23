@@ -17,9 +17,6 @@ export default function DraftModeToast() {
 
   useEffect(() => {
     if (isPresentationTool === false) {
-      /**
-       * We delay the toast in case we're inside Presentation Tool
-       */
       const toastId = toast("Draft Mode Enabled", {
         description:
           env === "live"

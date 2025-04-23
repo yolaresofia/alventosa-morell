@@ -1,4 +1,4 @@
-import { TextIcon } from '@sanity/icons'
+import {TextIcon} from '@sanity/icons'
 import {defineType, defineField} from 'sanity'
 
 export const textBlock = defineType({
@@ -10,9 +10,13 @@ export const textBlock = defineType({
     defineField({
       name: 'text',
       title: 'Text',
-      type: 'text',
-      rows: 6,
-      validation: (Rule) => Rule.required(),
+      type: 'object',
+      fields: [
+        defineField({name: 'ca', title: 'Català', type: 'text', rows: 6}),
+        defineField({name: 'es', title: 'Español', type: 'text', rows: 6}),
+        defineField({name: 'en', title: 'English', type: 'text', rows: 6}),
+      ],
+      validation: (Rule) => Rule.required().error('El text és obligatori'),
     }),
     defineField({
       name: 'alignment',
