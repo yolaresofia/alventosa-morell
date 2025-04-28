@@ -1,78 +1,82 @@
 import { defineQuery } from "next-sanity";
 
-export const settingsQuery = defineQuery(`*[_type == "settings"][0]{
-    ...,
-      mainNavigation {
-        ...,
-      "darkLogo": darkLogo.asset->,
-      "lightLogo": lightLogo.asset->,
-      navLinks[]{
-        ...,
-        page->}
-    },
-  }`);
-
-const linkFields = `
-  link {
-      ...,
-      _type == "link" => {
-        "page": page->slug.current,
-        "post": post->slug.current
-      }
-  }
-`;
-
-export const getPageQuery = defineQuery(`
-  *[_type == 'page' && slug.current == $slug][0]{
-    _id,
-    _type,
-    name,
-    slug,
-    heading,
-    subheading,
-    pageBackgroundColor,
-    "pageBuilder": pageBuilder[]{
-      ...,
-      _type == "callToAction" => {
-        ...,
-        ${linkFields},
-      },
-      _type == "introHero" => {
-        ...
-      }
-    },
-  }
-`);
-
-export const pagesSlugs = defineQuery(`
-  *[_type == "page" && defined(slug.current)]
-  {"slug": slug.current}
-`);
-
-export const getProjectQuery = defineQuery(`
-  *[_type == 'project' && slug.current == $slug][0]{
-    _id,
-    _type,
+export const getHomepageQuery = `*[_type == "home"][0]{
+  featuredProjects[]->{
     title,
     slug,
-    category,
-    "builder": builder[]{
-      ...
+    projectNumber,
+    thumbnail
+  }
+}`;
+
+export const getAboutPageQuery = defineQuery(`
+  *[_type == "about"][0]{
+    aboutText,
+    contact {
+      titleTranslations,
+      email,
+      phone
     },
+    office {
+      titleTranslations,
+      address,
+      addressUrl
+    },
+    social {
+      instagram
+    },
+    team {
+      titleTranslations,
+      coFounders[]{
+        name,
+        role
+      },
+      teammates[]{
+        name
+      },
+      teammatesTitleTranslations,
+      pastTeammates[]{
+        name
+      },
+      pastTeammatesTitleTranslations
+    },
+    aboutInfo
   }
 `);
 
-export const getProjectViewsQuery = defineQuery(`
-  *[_type == "projectViews"][0]{
-    projects[] {
-      projectName,
-      projectNumber,
-      program,
-      location,
-      area,
+export const getProjectsGridQuery = defineQuery(`
+  *[_type == "project"] | order(projectNumber asc) {
+    title,
+    slug,
+    projectNumber,
+    category, // ← ADD THIS
+    thumbnail,
+    "projectInfo": builder[_type == "projectInfo"][0]{
       year,
-      miniaturePhoto,
-      "slug": projectReference->slug.current
+      location,
+      program,
+      area
     }
+  }
+`);
+
+export const getSingleProjectQuery = defineQuery(`
+  *[_type == "project" && slug.current == $slug][0]{
+    title,
+    slug,
+    projectNumber,
+    builder[]{
+      // Your dynamic sections like images, text, etc
+      ...
+    }
+  }
+`);
+
+export const settingsQuery = defineQuery(`
+  *[_type == "settings"][0]{
+    siteTitle,
+    logo,
+    navLinks,
+    languages
   }
 `);

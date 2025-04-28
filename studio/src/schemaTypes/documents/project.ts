@@ -19,10 +19,21 @@ export const project = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: 'thumbnail',
-      title: 'Miniatura',
+      name: 'featuredImage',
+      title: 'Imatge destacada',
       type: 'image',
       options: {hotspot: true},
+    }),
+    defineField({
+      name: 'thumbnail',
+      title: 'Imatge miniatura',
+      type: 'image',
+      options: {hotspot: true},
+    }),
+    defineField({
+      name: 'projectNumber',
+      title: 'Número de projecte',
+      type: 'string',
     }),
     defineField({
       name: 'category',

@@ -1,24 +1,21 @@
-import {page} from './documents/page'
 import {settings} from './singletons/settings'
 import {link} from './objects/link'
 import {blockContent} from './objects/blockContent'
 import { introHero } from './objects/introHero'
-import { about } from './objects/about'
+import { about } from './singletons/about'
 import { coverImage } from './objects/coverImage'
 import { projectSummary } from './objects/projectSummary'
 import { diptychImage } from './objects/diptychImage'
 import { imageCarousel } from './objects/imageCarousel'
 import { textBlock } from './objects/textBlock'
 import { projectInfo } from './objects/projectInfo'
-import { projectViews } from './objects/projectViews'
-import { projectMin } from './objects/projectMin'
 import { project } from './documents/project'
+import { home } from './singletons/home'
 
 export const schemaTypes = [
   // Singletons
   settings,
-  // Documents
-  page,
+  home,
   // Objects
   blockContent,
   link,
@@ -30,7 +27,5 @@ export const schemaTypes = [
   imageCarousel,
   textBlock,
   projectInfo,
-  projectViews,
-  projectMin,
-  project
+  project,
 ]

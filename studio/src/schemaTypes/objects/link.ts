@@ -15,7 +15,6 @@ export const link = defineType({
       options: {
         list: [
           { title: 'URL', value: 'href' },
-          { title: 'Page', value: 'page' },
         ],
         layout: 'radio',
       },
@@ -40,20 +39,6 @@ export const link = defineType({
         }),
     }),
     defineField({
-      name: 'page',
-      title: 'Page',
-      type: 'reference',
-      to: [{ type: 'page' }],
-      hidden: ({ parent }) => parent?.linkType !== 'page',
-      validation: (Rule) =>
-        Rule.custom((value, context: any) => {
-          if (context.parent?.linkType === 'page' && !value) {
-            return 'Page reference is required when Link Type is Page';
-          }
-          return true;
-        }),
-    }),
-    defineField({
       name: 'openType',
       title: 'Open Type',
       type: 'string',
@@ -72,13 +57,11 @@ export const link = defineType({
   preview: {
     select: {
       linkType: 'linkType',
-      pageTitle: 'page.name',
       urlTitle: 'urlTitle',
     },
-    prepare({ linkType, pageTitle, urlTitle }) {
+    prepare({ linkType, urlTitle }) {
       let title = 'Untitled Link';
 
-      if (linkType === 'page') title = pageTitle || 'Untitled Page';
       if (linkType === 'href') title = urlTitle || 'Untitled URL';
 
       return {

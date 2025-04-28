@@ -100,7 +100,7 @@ export default {
         },
       },
       fontFamily: {
-        soehne: ["Soehne Buch", "sans-serif"],
+        soehne: ['"Soehne Buch"', "sans-serif"],
       },
     },
   },

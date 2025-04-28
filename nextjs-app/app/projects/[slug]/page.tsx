@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
 import Head from "next/head";
-import { notFound } from "next/navigation";
+import Link from "next/link";
 
 import PageBuilderPage from "@/app/components/PageBuilder";
 import { sanityFetch } from "@/sanity/lib/live";
 import { client } from "@/sanity/lib/client";
-import { Page as PageType } from "@/sanity.types";
 
 type Props = {
   params: { slug: string };
@@ -13,40 +12,77 @@ type Props = {
 
 export async function generateStaticParams() {
   const slugs = await client.fetch(
-    `*[_type == "project" && defined(slug.current)]{ slug }`
+    `*[_type == "project" && defined(slug.current)]{
+      "slug": slug.current
+    }`
   );
 
-  return slugs.map((p: any) => ({
-    slug: p.slug.current,
+  return slugs.map((s: { slug: string }) => ({
+    slug: s.slug,
   }));
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const page = await client.fetch(
+export async function generateMetadata(props: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await props.params;
+
+  const project = await client.fetch(
     `*[_type == "project" && slug.current == $slug][0]`,
-    { slug: params.slug }
+    { slug }
   );
 
   return {
-    title: page?.title,
-    description: page?.category,
+    title: project?.title || "Projecte",
+    description: project?.title || "",
   };
 }
 
-export default async function ProjectPage({ params }: Props) {
-  const page = await client.fetch(
-    `*[_type == "project" && slug.current == $slug][0]`,
-    { slug: params.slug }
+export default async function ProjectPage(props: Props) {
+  const params = props.params;
+
+  const [project, allProjects] = await Promise.all([
+    client.fetch(
+      '*[_type == "project" && slug.current == $slug][0]',
+      { slug: params.slug }
+    ),
+    client.fetch(
+      `*[_type == "project" && defined(slug.current)] | order(projectNumber asc){
+        "slug": slug.current,
+        projectNumber
+      }`
+    ),
+  ]);
+
+  if (!project) {
+    return <div>Project not found</div>;
+  }
+
+  const currentIndex = allProjects.findIndex(
+    (p: any) => p.slug === params.slug
   );
 
-  if (!page?._id) notFound();
+  const prevProject = currentIndex > 0 ? allProjects[currentIndex - 1] : null;
+  const nextProject = currentIndex < allProjects.length - 1 ? allProjects[currentIndex + 1] : null;
 
   return (
-    <div>
+    <div className="bg-white min-h-screen relative">
       <Head>
-        <title>{page.title}</title>
+        <title>{project.title}</title>
       </Head>
-      <PageBuilderPage page={page as PageType} />
+      <PageBuilderPage page={project} />
+      <div className="flex items-center text-sm px-32 mb-24">
+        {prevProject && (
+          <Link href={`/projects/${prevProject.slug}`} className="flex items-center pr-8 group">
+            <span className="group-hover:text-red-500 transition-colors">&larr;</span>
+            <span className="group-hover:text-red-500 transition-colors">{prevProject.projectNumber}</span>
+          </Link>
+        )}
+        {nextProject && (
+          <Link href={`/projects/${nextProject.slug}`} className="flex items-center group">
+            <span className="group-hover:text-red-500 transition-colors">{nextProject.projectNumber}</span>
+            <span className="group-hover:text-red-500 transition-colors">&rarr;</span>
+          </Link>
+        )}
+      </div>
     </div>
   );
 }

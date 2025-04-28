@@ -951,34 +951,16 @@ export type SanityAssistSchemaTypeField = {
 export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | ProjectViews | ProjectMin | ProjectInfo | TextBlock | ImageCarousel | DiptychImage | ProjectSummary | CoverImage | Project | About | IntroHero | BlockContent | Page | Link | Slug | Settings | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Color | RgbaColor | HsvaColor | HslaColor | SanityAssistInstructionTask | SanityAssistTaskStatus | SanityAssistSchemaTypeAnnotations | SanityAssistOutputType | SanityAssistOutputField | SanityAssistInstructionContext | AssistInstructionContext | SanityAssistInstructionUserInput | SanityAssistInstructionPrompt | SanityAssistInstructionFieldRef | SanityAssistInstruction | SanityAssistSchemaTypeField;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./sanity/lib/queries.ts
-// Variable: settingsQuery
-// Query: *[_type == "settings"][0]{    ...,      mainNavigation {        ...,      "darkLogo": darkLogo.asset->,      "lightLogo": lightLogo.asset->,      navLinks[]{        ...,        page->}    },  }
-export type SettingsQueryResult = {
-  _id: string;
-  _type: "settings";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
+// Variable: getAboutPageQuery
+// Query: *[_type == "about"][0]{    aboutText,    contact {      titleTranslations,      email,      phone    },    office {      titleTranslations,      address,      addressUrl    },    social {      instagram    },    team {      titleTranslations,      coFounders[]{        name,        role      },      teammates[]{        name      },      teammatesTitleTranslations,      pastTeammates[]{        name      },      pastTeammatesTitleTranslations    },    aboutInfo  }
+export type GetAboutPageQueryResult = null;
+// Variable: getProjectsGridQuery
+// Query: *[_type == "project"] | order(projectNumber asc) {    title,    slug,    projectNumber,    thumbnail,    "projectInfo": builder[_type == "projectInfo"][0]{      year,      location,      program,      area    }  }
+export type GetProjectsGridQueryResult = Array<{
   title: string;
-  description?: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
-      _key: string;
-    }>;
-    style?: "normal";
-    listItem?: never;
-    markDefs?: Array<{
-      href: string;
-      _type: "link";
-      _key: string;
-    }>;
-    level?: number;
-    _type: "block";
-    _key: string;
-  }>;
-  ogImage?: {
+  slug: Slug;
+  projectNumber: null;
+  thumbnail: {
     asset?: {
       _ref: string;
       _type: "reference";
@@ -987,339 +969,57 @@ export type SettingsQueryResult = {
     };
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
-    alt?: string;
-    metadataBase?: string;
     _type: "image";
-  };
-  mainNavigation: null;
-} | null;
-// Variable: getPageQuery
-// Query: *[_type == 'page' && slug.current == $slug][0]{    _id,    _type,    name,    slug,    heading,    subheading,    pageBackgroundColor,    "pageBuilder": pageBuilder[]{      ...,      _type == "callToAction" => {        ...,          link {      ...,      _type == "link" => {        "page": page->slug.current,        "post": post->slug.current      }  },      },      _type == "introHero" => {        ...      }    },  }
-export type GetPageQueryResult = {
-  _id: string;
-  _type: "page";
-  name: string;
-  slug: Slug | null;
-  heading: string;
-  subheading: string | null;
-  pageBackgroundColor: Color | null;
-  pageBuilder: Array<{
-    _key: string;
-    _type: "about";
-    aboutText?: {
-      ca?: Array<{
-        children?: Array<{
-          marks?: Array<string>;
-          text?: string;
-          _type: "span";
-          _key: string;
-        }>;
-        style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
-        listItem?: "bullet" | "number";
-        markDefs?: Array<{
-          linkType?: "href" | "page";
-          urlTitle?: string;
-          href?: string;
-          page?: {
-            _ref: string;
-            _type: "reference";
-            _weak?: boolean;
-            [internalGroqTypeReferenceTo]?: "page";
-          };
-          openType?: "modal" | "newTab";
-          _type: "link";
-          _key: string;
-        }>;
-        level?: number;
-        _type: "block";
-        _key: string;
-      }>;
-      en?: Array<{
-        children?: Array<{
-          marks?: Array<string>;
-          text?: string;
-          _type: "span";
-          _key: string;
-        }>;
-        style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
-        listItem?: "bullet" | "number";
-        markDefs?: Array<{
-          linkType?: "href" | "page";
-          urlTitle?: string;
-          href?: string;
-          page?: {
-            _ref: string;
-            _type: "reference";
-            _weak?: boolean;
-            [internalGroqTypeReferenceTo]?: "page";
-          };
-          openType?: "modal" | "newTab";
-          _type: "link";
-          _key: string;
-        }>;
-        level?: number;
-        _type: "block";
-        _key: string;
-      }>;
-      es?: Array<{
-        children?: Array<{
-          marks?: Array<string>;
-          text?: string;
-          _type: "span";
-          _key: string;
-        }>;
-        style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
-        listItem?: "bullet" | "number";
-        markDefs?: Array<{
-          linkType?: "href" | "page";
-          urlTitle?: string;
-          href?: string;
-          page?: {
-            _ref: string;
-            _type: "reference";
-            _weak?: boolean;
-            [internalGroqTypeReferenceTo]?: "page";
-          };
-          openType?: "modal" | "newTab";
-          _type: "link";
-          _key: string;
-        }>;
-        level?: number;
-        _type: "block";
-        _key: string;
-      }>;
-    };
-    contact?: {
-      titleTranslations?: {
+  } | null;
+  projectInfo: {
+    year: {
+      label?: {
         ca?: string;
-        en?: string;
         es?: string;
+        en?: string;
       };
-      email: string;
-      phone: string;
-    };
-    office?: {
-      titleTranslations?: {
+      value?: string;
+    } | null;
+    location: {
+      label?: {
         ca?: string;
-        en?: string;
         es?: string;
+        en?: string;
       };
-      address?: Array<{
-        children?: Array<{
-          marks?: Array<string>;
-          text?: string;
-          _type: "span";
-          _key: string;
-        }>;
-        style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
-        listItem?: "bullet" | "number";
-        markDefs?: Array<{
-          linkType?: "href" | "page";
-          urlTitle?: string;
-          href?: string;
-          page?: {
-            _ref: string;
-            _type: "reference";
-            _weak?: boolean;
-            [internalGroqTypeReferenceTo]?: "page";
-          };
-          openType?: "modal" | "newTab";
-          _type: "link";
-          _key: string;
-        }>;
-        level?: number;
-        _type: "block";
-        _key: string;
-      }>;
-      addressUrl?: Link;
-    };
-    social?: {
-      instagram?: Link;
-    };
-    team?: {
-      titleTranslations?: {
+      value?: {
         ca?: string;
-        en?: string;
         es?: string;
+        en?: string;
       };
-      coFounders?: Array<{
-        name: string;
-        role?: {
-          ca?: string;
-          en?: string;
-          es?: string;
-        };
-        _key: string;
-      }>;
-      teammates?: Array<{
-        name: string;
-        _key: string;
-      }>;
-      teammatesTitleTranslations?: {
+    } | null;
+    program: {
+      label?: {
         ca?: string;
-        en?: string;
         es?: string;
+        en?: string;
       };
-      pastTeammates?: Array<{
-        name: string;
-        _key: string;
-      }>;
-      pastTeammatesTitleTranslations?: {
+      value?: {
         ca?: string;
-        en?: string;
         es?: string;
+        en?: string;
       };
-    };
-    aboutInfo?: {
-      ca?: Array<{
-        children?: Array<{
-          marks?: Array<string>;
-          text?: string;
-          _type: "span";
-          _key: string;
-        }>;
-        style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
-        listItem?: "bullet" | "number";
-        markDefs?: Array<{
-          linkType?: "href" | "page";
-          urlTitle?: string;
-          href?: string;
-          page?: {
-            _ref: string;
-            _type: "reference";
-            _weak?: boolean;
-            [internalGroqTypeReferenceTo]?: "page";
-          };
-          openType?: "modal" | "newTab";
-          _type: "link";
-          _key: string;
-        }>;
-        level?: number;
-        _type: "block";
-        _key: string;
-      }>;
-      en?: Array<{
-        children?: Array<{
-          marks?: Array<string>;
-          text?: string;
-          _type: "span";
-          _key: string;
-        }>;
-        style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
-        listItem?: "bullet" | "number";
-        markDefs?: Array<{
-          linkType?: "href" | "page";
-          urlTitle?: string;
-          href?: string;
-          page?: {
-            _ref: string;
-            _type: "reference";
-            _weak?: boolean;
-            [internalGroqTypeReferenceTo]?: "page";
-          };
-          openType?: "modal" | "newTab";
-          _type: "link";
-          _key: string;
-        }>;
-        level?: number;
-        _type: "block";
-        _key: string;
-      }>;
-      es?: Array<{
-        children?: Array<{
-          marks?: Array<string>;
-          text?: string;
-          _type: "span";
-          _key: string;
-        }>;
-        style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
-        listItem?: "bullet" | "number";
-        markDefs?: Array<{
-          linkType?: "href" | "page";
-          urlTitle?: string;
-          href?: string;
-          page?: {
-            _ref: string;
-            _type: "reference";
-            _weak?: boolean;
-            [internalGroqTypeReferenceTo]?: "page";
-          };
-          openType?: "modal" | "newTab";
-          _type: "link";
-          _key: string;
-        }>;
-        level?: number;
-        _type: "block";
-        _key: string;
-      }>;
-    };
-  } | {
-    _key: string;
-    _type: "introHero";
-    desktopBackgroundImages?: Array<{
-      image?: {
-        asset?: {
-          _ref: string;
-          _type: "reference";
-          _weak?: boolean;
-          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-        };
-        hotspot?: SanityImageHotspot;
-        crop?: SanityImageCrop;
-        _type: "image";
+    } | null;
+    area: {
+      label?: {
+        ca?: string;
+        es?: string;
+        en?: string;
       };
-      altText?: string;
-      _key: string;
-    }>;
-    mobileBackgroundImages?: Array<{
-      image?: {
-        asset?: {
-          _ref: string;
-          _type: "reference";
-          _weak?: boolean;
-          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-        };
-        hotspot?: SanityImageHotspot;
-        crop?: SanityImageCrop;
-        _type: "image";
-      };
-      altText?: string;
-      _key: string;
-    }>;
-    logo?: {
-      asset?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-      };
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
-      _type: "image";
-    };
-    logoAltText?: string;
-    filter?: boolean;
-  } | {
-    _key: string;
-    _type: "projectViews";
-    projects?: Array<{
-      _key: string;
-    } & ProjectMin>;
-  }> | null;
-} | null;
-// Variable: pagesSlugs
-// Query: *[_type == "page" && defined(slug.current)]  {"slug": slug.current}
-export type PagesSlugsResult = Array<{
-  slug: string | null;
+      value?: string;
+    } | null;
+  } | null;
 }>;
-// Variable: getProjectQuery
-// Query: *[_type == 'project' && slug.current == $slug][0]{    _id,    _type,    title,    slug,    category,    "builder": builder[]{      ...    },  }
-export type GetProjectQueryResult = {
-  _id: string;
-  _type: "project";
+// Variable: getSingleProjectQuery
+// Query: *[_type == "project" && slug.current == $slug][0]{    title,    slug,    projectNumber,    builder[]{      // Your dynamic sections like images, text, etc      ...    }  }
+export type GetSingleProjectQueryResult = {
   title: string;
   slug: Slug;
-  category: "all" | "equip" | "pluri" | "uni" | null;
+  projectNumber: null;
   builder: Array<{
     _key: string;
     _type: "coverImage";
@@ -1510,18 +1210,22 @@ export type GetProjectQueryResult = {
     alignment?: "left" | "right";
   }> | null;
 } | null;
-// Variable: getProjectViewsQuery
-// Query: *[_type == "projectViews"][0]{    projects[] {      projectName,      projectNumber,      program,      location,      area,      year,      miniaturePhoto,      "slug": projectReference->slug.current    }  }
-export type GetProjectViewsQueryResult = null;
+// Variable: settingsQuery
+// Query: *[_type == "settings"][0]{    siteTitle,    logo,    navLinks,    languages  }
+export type SettingsQueryResult = {
+  siteTitle: null;
+  logo: null;
+  navLinks: null;
+  languages: null;
+} | null;
 
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    "*[_type == \"settings\"][0]{\n    ...,\n      mainNavigation {\n        ...,\n      \"darkLogo\": darkLogo.asset->,\n      \"lightLogo\": lightLogo.asset->,\n      navLinks[]{\n        ...,\n        page->}\n    },\n  }": SettingsQueryResult;
-    "\n  *[_type == 'page' && slug.current == $slug][0]{\n    _id,\n    _type,\n    name,\n    slug,\n    heading,\n    subheading,\n    pageBackgroundColor,\n    \"pageBuilder\": pageBuilder[]{\n      ...,\n      _type == \"callToAction\" => {\n        ...,\n        \n  link {\n      ...,\n      _type == \"link\" => {\n        \"page\": page->slug.current,\n        \"post\": post->slug.current\n      }\n  }\n,\n      },\n      _type == \"introHero\" => {\n        ...\n      }\n    },\n  }\n": GetPageQueryResult;
-    "\n  *[_type == \"page\" && defined(slug.current)]\n  {\"slug\": slug.current}\n": PagesSlugsResult;
-    "\n  *[_type == 'project' && slug.current == $slug][0]{\n    _id,\n    _type,\n    title,\n    slug,\n    category,\n    \"builder\": builder[]{\n      ...\n    },\n  }\n": GetProjectQueryResult;
-    "\n  *[_type == \"projectViews\"][0]{\n    projects[] {\n      projectName,\n      projectNumber,\n      program,\n      location,\n      area,\n      year,\n      miniaturePhoto,\n      \"slug\": projectReference->slug.current\n    }\n  }\n": GetProjectViewsQueryResult;
+    "\n  *[_type == \"about\"][0]{\n    aboutText,\n    contact {\n      titleTranslations,\n      email,\n      phone\n    },\n    office {\n      titleTranslations,\n      address,\n      addressUrl\n    },\n    social {\n      instagram\n    },\n    team {\n      titleTranslations,\n      coFounders[]{\n        name,\n        role\n      },\n      teammates[]{\n        name\n      },\n      teammatesTitleTranslations,\n      pastTeammates[]{\n        name\n      },\n      pastTeammatesTitleTranslations\n    },\n    aboutInfo\n  }\n": GetAboutPageQueryResult;
+    "\n  *[_type == \"project\"] | order(projectNumber asc) {\n    title,\n    slug,\n    projectNumber,\n    thumbnail,\n    \"projectInfo\": builder[_type == \"projectInfo\"][0]{\n      year,\n      location,\n      program,\n      area\n    }\n  }\n": GetProjectsGridQueryResult;
+    "\n  *[_type == \"project\" && slug.current == $slug][0]{\n    title,\n    slug,\n    projectNumber,\n    builder[]{\n      // Your dynamic sections like images, text, etc\n      ...\n    }\n  }\n": GetSingleProjectQueryResult;
+    "\n  *[_type == \"settings\"][0]{\n    siteTitle,\n    logo,\n    navLinks,\n    languages\n  }\n": SettingsQueryResult;
   }
 }

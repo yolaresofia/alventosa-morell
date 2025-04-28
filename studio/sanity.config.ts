@@ -1,35 +1,33 @@
-import {defineConfig} from 'sanity'
-import {structureTool} from 'sanity/structure'
-import {visionTool} from '@sanity/vision'
-import {schemaTypes} from './src/schemaTypes'
-import {structure} from './src/structure'
-import {unsplashImageAsset} from 'sanity-plugin-asset-source-unsplash'
+import { defineConfig } from 'sanity';
+import { structureTool } from 'sanity/structure';
+import { visionTool } from '@sanity/vision';
+import { schemaTypes } from './src/schemaTypes';
+import { structure } from './src/structure';
+import { unsplashImageAsset } from 'sanity-plugin-asset-source-unsplash';
 import {
   presentationTool,
   defineDocuments,
   defineLocations,
   type DocumentLocation,
-} from 'sanity/presentation'
-import {assist} from '@sanity/assist'
-import {colorInput} from '@sanity/color-input'
+} from 'sanity/presentation';
+import { assist } from '@sanity/assist';
+import { colorInput } from '@sanity/color-input';
 
-const projectId = process.env.SANITY_STUDIO_PROJECT_ID || 'your-projectID'
-const dataset = process.env.SANITY_STUDIO_DATASET || 'staging'
+const projectId = process.env.SANITY_STUDIO_PROJECT_ID || 'your-projectID';
+const dataset = process.env.SANITY_STUDIO_DATASET || 'staging';
 
-const SANITY_STUDIO_PREVIEW_URL = process.env.SANITY_STUDIO_PREVIEW_URL || 'http://localhost:3000'
-
+const SANITY_STUDIO_PREVIEW_URL =
+  process.env.SANITY_STUDIO_PREVIEW_URL || 'http://localhost:3000';
 
 const homeLocation = {
   title: 'Home',
   href: '/',
-} satisfies DocumentLocation
+} satisfies DocumentLocation;
 
 function resolveHref(documentType?: string, slug?: string): string | undefined {
   switch (documentType) {
-    case 'page':
-      return slug === '/' ? '/' : `/${slug}`;
-    case 'post':
-      return slug ? `/posts/${slug}` : undefined;
+    case 'settings':
+      return '/';
     case 'project':
       return slug ? `/projects/${slug}` : undefined;
     default:
@@ -37,6 +35,7 @@ function resolveHref(documentType?: string, slug?: string): string | undefined {
       return undefined;
   }
 }
+
 export default defineConfig({
   name: 'default',
   title: 'ALVENTOSA MORELL dev studio',
@@ -56,15 +55,7 @@ export default defineConfig({
         mainDocuments: defineDocuments([
           {
             route: '/',
-            filter: `_type == "page" && slug.current == "/"`,
-          },
-          {
-            route: '/:slug',
-            filter: `_type == "page" && slug.current == $slug || _id == $slug`,
-          },
-          {
-            route: '/posts/:slug',
-            filter: `_type == "post" && slug.current == $slug || _id == $slug`,
+            filter: `_type == "settings"`,
           },
           {
             route: '/projects/:slug',
@@ -74,22 +65,8 @@ export default defineConfig({
         locations: {
           settings: defineLocations({
             locations: [homeLocation],
-            message: 'This document is used on all pages',
+            message: 'This document is used as your homepage',
             tone: 'positive',
-          }),
-          page: defineLocations({
-            select: {
-              name: 'name',
-              slug: 'slug.current',
-            },
-            resolve: (doc) => ({
-              locations: [
-                {
-                  title: doc?.name || 'Untitled',
-                  href: resolveHref('page', doc?.slug)!,
-                },
-              ],
-            }),
           }),
           project: defineLocations({
             select: {
@@ -116,7 +93,8 @@ export default defineConfig({
     visionTool(),
     colorInput(),
   ],
+
   schema: {
     types: schemaTypes,
   },
-})
+});
