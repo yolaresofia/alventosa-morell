@@ -2,8 +2,6 @@ import type { Metadata } from "next";
 import PageBuilderPage from "@/app/components/PageBuilder";
 import { client } from "@/sanity/lib/client";
 
-type Props = { params: { slug: string } };
-
 export async function generateStaticParams() {
   const slugs = await client.fetch(
     `*[_type == "project" && defined(slug.current)]{

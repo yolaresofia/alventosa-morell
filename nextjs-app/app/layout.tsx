@@ -13,6 +13,7 @@ import Link from "next/link";
 import Image from "next/image";
 import NavLinks from "./components/NavLinks";
 import MobileNav from "./components/MobileNav";
+import LanguageSwitcher from "./components/LanguageSwitcher";
 
 export async function generateMetadata(): Promise<Metadata> {
   const { data: settings } = await sanityFetch({
@@ -62,11 +63,12 @@ export default async function RootLayout({
 
   const logoUrl = settings?.logo ? urlForImage(settings.logo)?.url() : null;
   const navLinks = (settings?.navLinks || [])
-  .filter((link) => link.href && link.label)
-  .map((link) => ({
-    href: link.href as string,
-    label: link.label as string,
-  }));
+    .filter((link) => link.href && link.label)
+    .map((link) => ({
+      href: link.href as string,
+      label: link.label as string,
+    }));
+
   const languages = settings?.languages || ["ca", "es", "en"];
 
   return (
@@ -96,6 +98,11 @@ export default async function RootLayout({
 
             <main className="min-h-screen flex flex-col">{children}</main>
           </MotionLayout>
+
+          {/* ✅ Language switcher shown on desktop only */}
+          <div className="fixed bottom-4 right-4 z-50 hidden md:block">
+            <LanguageSwitcher languages={languages} />
+          </div>
 
           <SpeedInsights />
         </LanguageProvider>
