@@ -1358,7 +1358,7 @@ export type GetSingleProjectQueryResult = {
   }> | null;
 } | null;
 // Variable: settingsQuery
-// Query: *[_type == "settings"][0]{    siteTitle,    description,    logo,    navLinks,    languages  }
+// Query: *[_type == "settings"][0]{    siteTitle,    description,    ogImage,    logo,    navLinks,    languages  }
 export type SettingsQueryResult = {
   siteTitle: string | null;
   description: Array<{
@@ -1379,6 +1379,19 @@ export type SettingsQueryResult = {
     _type: "block";
     _key: string;
   }> | null;
+  ogImage: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    metadataBase?: string;
+    _type: "image";
+  } | null;
   logo: {
     asset?: {
       _ref: string;
@@ -1405,6 +1418,6 @@ declare module "@sanity/client" {
     "\n  *[_type == \"about\"][0]{\n    aboutText,\n    contact {\n      titleTranslations,\n      email,\n      phone\n    },\n    office {\n      titleTranslations,\n      address,\n      addressUrl\n    },\n    social {\n      instagram\n    },\n    team {\n      titleTranslations,\n      coFounders[]{\n        name,\n        role\n      },\n      teammates[]{\n        name\n      },\n      teammatesTitleTranslations,\n      pastTeammates[]{\n        name\n      },\n      pastTeammatesTitleTranslations\n    },\n    aboutInfo\n  }\n": GetAboutPageQueryResult;
     "\n  *[_type == \"project\"] | order(projectNumber asc) {\n    title,\n    slug,\n    projectNumber,\n    category, // \u2190 ADD THIS\n    thumbnail,\n    \"projectInfo\": builder[_type == \"projectInfo\"][0]{\n      year,\n      location,\n      program,\n      area\n    }\n  }\n": GetProjectsGridQueryResult;
     "\n  *[_type == \"project\" && slug.current == $slug][0]{\n    title,\n    slug,\n    projectNumber,\n    builder[]{\n      // Your dynamic sections like images, text, etc\n      ...\n    }\n  }\n": GetSingleProjectQueryResult;
-    "\n  *[_type == \"settings\"][0]{\n    siteTitle,\n    description,\n    logo,\n    navLinks,\n    languages\n  }\n": SettingsQueryResult;
+    "\n  *[_type == \"settings\"][0]{\n    siteTitle,\n    description,\n    ogImage,\n    logo,\n    navLinks,\n    languages\n  }\n": SettingsQueryResult;
   }
 }
