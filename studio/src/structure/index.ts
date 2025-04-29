@@ -20,11 +20,11 @@ export const structure: StructureResolver = (S: StructureBuilder) =>
         }),
 
       S.listItem()
-        .title('About')
+        .title('Info')
         .child(S.document().schemaType('about').documentId('siteAbout'))
         .icon(UsersIcon),
       S.listItem()
-        .title('Site Settings')
+        .title('Configuració')
         .child(S.document().schemaType('settings').documentId('siteSettings'))
         .icon(CogIcon),
     ])

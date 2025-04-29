@@ -5,7 +5,7 @@ export const getHomepageQuery = `*[_type == "home"][0]{
     title,
     slug,
     projectNumber,
-    thumbnail
+    featuredImage
   }
 }`;
 
@@ -75,6 +75,8 @@ export const getSingleProjectQuery = defineQuery(`
 export const settingsQuery = defineQuery(`
   *[_type == "settings"][0]{
     siteTitle,
+    description,
+    ogImage,
     logo,
     navLinks,
     languages

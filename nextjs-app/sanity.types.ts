@@ -68,22 +68,15 @@ export type Geopoint = {
   alt?: number;
 };
 
-export type ProjectViews = {
-  _type: "projectViews";
-  projects?: Array<{
-    _key: string;
-  } & ProjectMin>;
-};
-
-export type ProjectMin = {
-  _type: "projectMin";
-  projectNumber?: string;
-  projectName?: string;
-  program?: string;
-  location?: string;
-  area?: string;
-  year?: string;
-  miniaturePhoto?: {
+export type Project = {
+  _id: string;
+  _type: "project";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title: string;
+  slug: Slug;
+  featuredImage?: {
     asset?: {
       _ref: string;
       _type: "reference";
@@ -94,12 +87,38 @@ export type ProjectMin = {
     crop?: SanityImageCrop;
     _type: "image";
   };
-  projectReference?: {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "project";
+  thumbnail?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
   };
+  projectNumber?: string;
+  category?: "all" | "uni" | "pluri" | "equip";
+  builder?: Array<{
+    _key: string;
+  } & CoverImage | {
+    _key: string;
+  } & ProjectSummary | {
+    _key: string;
+  } & DiptychImage | {
+    _key: string;
+  } & TextBlock | {
+    _key: string;
+  } & ImageCarousel | {
+    _key: string;
+  } & ProjectInfo>;
+};
+
+export type Slug = {
+  _type: "slug";
+  current: string;
+  source?: string;
 };
 
 export type ProjectInfo = {
@@ -296,43 +315,12 @@ export type CoverImage = {
   paddingBottom?: "0" | "4" | "8" | "12" | "16" | "20" | "24" | "32" | "40" | "48" | "56" | "64";
 };
 
-export type Project = {
+export type About = {
   _id: string;
-  _type: "project";
+  _type: "about";
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  title: string;
-  slug: Slug;
-  thumbnail?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: "image";
-  };
-  category?: "all" | "uni" | "pluri" | "equip";
-  builder?: Array<{
-    _key: string;
-  } & CoverImage | {
-    _key: string;
-  } & ProjectSummary | {
-    _key: string;
-  } & DiptychImage | {
-    _key: string;
-  } & TextBlock | {
-    _key: string;
-  } & ImageCarousel | {
-    _key: string;
-  } & ProjectInfo>;
-};
-
-export type About = {
-  _type: "about";
   aboutText?: {
     ca?: Array<{
       children?: Array<{
@@ -344,15 +332,9 @@ export type About = {
       style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
       listItem?: "bullet" | "number";
       markDefs?: Array<{
-        linkType?: "href" | "page";
+        linkType?: "href";
         urlTitle?: string;
         href?: string;
-        page?: {
-          _ref: string;
-          _type: "reference";
-          _weak?: boolean;
-          [internalGroqTypeReferenceTo]?: "page";
-        };
         openType?: "newTab" | "modal";
         _type: "link";
         _key: string;
@@ -371,15 +353,9 @@ export type About = {
       style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
       listItem?: "bullet" | "number";
       markDefs?: Array<{
-        linkType?: "href" | "page";
+        linkType?: "href";
         urlTitle?: string;
         href?: string;
-        page?: {
-          _ref: string;
-          _type: "reference";
-          _weak?: boolean;
-          [internalGroqTypeReferenceTo]?: "page";
-        };
         openType?: "newTab" | "modal";
         _type: "link";
         _key: string;
@@ -398,15 +374,9 @@ export type About = {
       style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
       listItem?: "bullet" | "number";
       markDefs?: Array<{
-        linkType?: "href" | "page";
+        linkType?: "href";
         urlTitle?: string;
         href?: string;
-        page?: {
-          _ref: string;
-          _type: "reference";
-          _weak?: boolean;
-          [internalGroqTypeReferenceTo]?: "page";
-        };
         openType?: "newTab" | "modal";
         _type: "link";
         _key: string;
@@ -422,8 +392,8 @@ export type About = {
       en?: string;
       es?: string;
     };
-    email: string;
-    phone: string;
+    email?: string;
+    phone?: string;
   };
   office?: {
     titleTranslations?: {
@@ -441,15 +411,9 @@ export type About = {
       style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
       listItem?: "bullet" | "number";
       markDefs?: Array<{
-        linkType?: "href" | "page";
+        linkType?: "href";
         urlTitle?: string;
         href?: string;
-        page?: {
-          _ref: string;
-          _type: "reference";
-          _weak?: boolean;
-          [internalGroqTypeReferenceTo]?: "page";
-        };
         openType?: "newTab" | "modal";
         _type: "link";
         _key: string;
@@ -470,16 +434,18 @@ export type About = {
       es?: string;
     };
     coFounders?: Array<{
-      name: string;
+      name?: string;
       role?: {
         ca?: string;
         en?: string;
         es?: string;
       };
+      _type: "coFounder";
       _key: string;
     }>;
     teammates?: Array<{
-      name: string;
+      name?: string;
+      _type: "teammate";
       _key: string;
     }>;
     teammatesTitleTranslations?: {
@@ -488,7 +454,8 @@ export type About = {
       es?: string;
     };
     pastTeammates?: Array<{
-      name: string;
+      name?: string;
+      _type: "pastTeammate";
       _key: string;
     }>;
     pastTeammatesTitleTranslations?: {
@@ -508,15 +475,9 @@ export type About = {
       style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
       listItem?: "bullet" | "number";
       markDefs?: Array<{
-        linkType?: "href" | "page";
+        linkType?: "href";
         urlTitle?: string;
         href?: string;
-        page?: {
-          _ref: string;
-          _type: "reference";
-          _weak?: boolean;
-          [internalGroqTypeReferenceTo]?: "page";
-        };
         openType?: "newTab" | "modal";
         _type: "link";
         _key: string;
@@ -535,15 +496,9 @@ export type About = {
       style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
       listItem?: "bullet" | "number";
       markDefs?: Array<{
-        linkType?: "href" | "page";
+        linkType?: "href";
         urlTitle?: string;
         href?: string;
-        page?: {
-          _ref: string;
-          _type: "reference";
-          _weak?: boolean;
-          [internalGroqTypeReferenceTo]?: "page";
-        };
         openType?: "newTab" | "modal";
         _type: "link";
         _key: string;
@@ -562,15 +517,9 @@ export type About = {
       style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
       listItem?: "bullet" | "number";
       markDefs?: Array<{
-        linkType?: "href" | "page";
+        linkType?: "href";
         urlTitle?: string;
         href?: string;
-        page?: {
-          _ref: string;
-          _type: "reference";
-          _weak?: boolean;
-          [internalGroqTypeReferenceTo]?: "page";
-        };
         openType?: "newTab" | "modal";
         _type: "link";
         _key: string;
@@ -629,6 +578,14 @@ export type IntroHero = {
   filter?: boolean;
 };
 
+export type Link = {
+  _type: "link";
+  linkType?: "href";
+  urlTitle?: string;
+  href?: string;
+  openType?: "newTab" | "modal";
+};
+
 export type BlockContent = Array<{
   children?: Array<{
     marks?: Array<string>;
@@ -639,15 +596,9 @@ export type BlockContent = Array<{
   style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
   listItem?: "bullet" | "number";
   markDefs?: Array<{
-    linkType?: "href" | "page";
+    linkType?: "href";
     urlTitle?: string;
     href?: string;
-    page?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "page";
-    };
     openType?: "newTab" | "modal";
     _type: "link";
     _key: string;
@@ -657,44 +608,19 @@ export type BlockContent = Array<{
   _key: string;
 }>;
 
-export type Page = {
+export type Home = {
   _id: string;
-  _type: "page";
+  _type: "home";
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  name: string;
-  slug?: Slug;
-  heading: string;
-  subheading?: string;
-  pageBackgroundColor?: Color;
-  pageBuilder?: Array<{
-    _key: string;
-  } & IntroHero | {
-    _key: string;
-  } & About | {
-    _key: string;
-  } & ProjectViews>;
-};
-
-export type Link = {
-  _type: "link";
-  linkType?: "href" | "page";
-  urlTitle?: string;
-  href?: string;
-  page?: {
+  featuredProjects?: Array<{
     _ref: string;
     _type: "reference";
     _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "page";
-  };
-  openType?: "newTab" | "modal";
-};
-
-export type Slug = {
-  _type: "slug";
-  current: string;
-  source?: string;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: "project";
+  }>;
 };
 
 export type Settings = {
@@ -703,7 +629,7 @@ export type Settings = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  title: string;
+  siteTitle?: string;
   description?: Array<{
     children?: Array<{
       marks?: Array<string>;
@@ -735,6 +661,23 @@ export type Settings = {
     metadataBase?: string;
     _type: "image";
   };
+  logo?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  navLinks?: Array<{
+    label?: string;
+    href?: string;
+    _key: string;
+  }>;
+  languages?: Array<string>;
 };
 
 export type SanityImageCrop = {
@@ -948,18 +891,222 @@ export type SanityAssistSchemaTypeField = {
   } & SanityAssistInstruction>;
 };
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | ProjectViews | ProjectMin | ProjectInfo | TextBlock | ImageCarousel | DiptychImage | ProjectSummary | CoverImage | Project | About | IntroHero | BlockContent | Page | Link | Slug | Settings | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Color | RgbaColor | HsvaColor | HslaColor | SanityAssistInstructionTask | SanityAssistTaskStatus | SanityAssistSchemaTypeAnnotations | SanityAssistOutputType | SanityAssistOutputField | SanityAssistInstructionContext | AssistInstructionContext | SanityAssistInstructionUserInput | SanityAssistInstructionPrompt | SanityAssistInstructionFieldRef | SanityAssistInstruction | SanityAssistSchemaTypeField;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | Project | Slug | ProjectInfo | TextBlock | ImageCarousel | DiptychImage | ProjectSummary | CoverImage | About | IntroHero | Link | BlockContent | Home | Settings | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Color | RgbaColor | HsvaColor | HslaColor | SanityAssistInstructionTask | SanityAssistTaskStatus | SanityAssistSchemaTypeAnnotations | SanityAssistOutputType | SanityAssistOutputField | SanityAssistInstructionContext | AssistInstructionContext | SanityAssistInstructionUserInput | SanityAssistInstructionPrompt | SanityAssistInstructionFieldRef | SanityAssistInstruction | SanityAssistSchemaTypeField;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./sanity/lib/queries.ts
 // Variable: getAboutPageQuery
 // Query: *[_type == "about"][0]{    aboutText,    contact {      titleTranslations,      email,      phone    },    office {      titleTranslations,      address,      addressUrl    },    social {      instagram    },    team {      titleTranslations,      coFounders[]{        name,        role      },      teammates[]{        name      },      teammatesTitleTranslations,      pastTeammates[]{        name      },      pastTeammatesTitleTranslations    },    aboutInfo  }
-export type GetAboutPageQueryResult = null;
+export type GetAboutPageQueryResult = {
+  aboutText: {
+    ca?: Array<{
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+      listItem?: "bullet" | "number";
+      markDefs?: Array<{
+        linkType?: "href";
+        urlTitle?: string;
+        href?: string;
+        openType?: "modal" | "newTab";
+        _type: "link";
+        _key: string;
+      }>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    }>;
+    en?: Array<{
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+      listItem?: "bullet" | "number";
+      markDefs?: Array<{
+        linkType?: "href";
+        urlTitle?: string;
+        href?: string;
+        openType?: "modal" | "newTab";
+        _type: "link";
+        _key: string;
+      }>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    }>;
+    es?: Array<{
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+      listItem?: "bullet" | "number";
+      markDefs?: Array<{
+        linkType?: "href";
+        urlTitle?: string;
+        href?: string;
+        openType?: "modal" | "newTab";
+        _type: "link";
+        _key: string;
+      }>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    }>;
+  } | null;
+  contact: {
+    titleTranslations: {
+      ca?: string;
+      en?: string;
+      es?: string;
+    } | null;
+    email: string | null;
+    phone: string | null;
+  } | null;
+  office: {
+    titleTranslations: {
+      ca?: string;
+      en?: string;
+      es?: string;
+    } | null;
+    address: Array<{
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+      listItem?: "bullet" | "number";
+      markDefs?: Array<{
+        linkType?: "href";
+        urlTitle?: string;
+        href?: string;
+        openType?: "modal" | "newTab";
+        _type: "link";
+        _key: string;
+      }>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    }> | null;
+    addressUrl: Link | null;
+  } | null;
+  social: {
+    instagram: Link | null;
+  } | null;
+  team: {
+    titleTranslations: {
+      ca?: string;
+      en?: string;
+      es?: string;
+    } | null;
+    coFounders: Array<{
+      name: string | null;
+      role: {
+        ca?: string;
+        en?: string;
+        es?: string;
+      } | null;
+    }> | null;
+    teammates: Array<{
+      name: string | null;
+    }> | null;
+    teammatesTitleTranslations: {
+      ca?: string;
+      en?: string;
+      es?: string;
+    } | null;
+    pastTeammates: Array<{
+      name: string | null;
+    }> | null;
+    pastTeammatesTitleTranslations: {
+      ca?: string;
+      en?: string;
+      es?: string;
+    } | null;
+  } | null;
+  aboutInfo: {
+    ca?: Array<{
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+      listItem?: "bullet" | "number";
+      markDefs?: Array<{
+        linkType?: "href";
+        urlTitle?: string;
+        href?: string;
+        openType?: "modal" | "newTab";
+        _type: "link";
+        _key: string;
+      }>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    }>;
+    en?: Array<{
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+      listItem?: "bullet" | "number";
+      markDefs?: Array<{
+        linkType?: "href";
+        urlTitle?: string;
+        href?: string;
+        openType?: "modal" | "newTab";
+        _type: "link";
+        _key: string;
+      }>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    }>;
+    es?: Array<{
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+      listItem?: "bullet" | "number";
+      markDefs?: Array<{
+        linkType?: "href";
+        urlTitle?: string;
+        href?: string;
+        openType?: "modal" | "newTab";
+        _type: "link";
+        _key: string;
+      }>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    }>;
+  } | null;
+} | null;
 // Variable: getProjectsGridQuery
-// Query: *[_type == "project"] | order(projectNumber asc) {    title,    slug,    projectNumber,    thumbnail,    "projectInfo": builder[_type == "projectInfo"][0]{      year,      location,      program,      area    }  }
+// Query: *[_type == "project"] | order(projectNumber asc) {    title,    slug,    projectNumber,    category, // ← ADD THIS    thumbnail,    "projectInfo": builder[_type == "projectInfo"][0]{      year,      location,      program,      area    }  }
 export type GetProjectsGridQueryResult = Array<{
   title: string;
   slug: Slug;
-  projectNumber: null;
+  projectNumber: string | null;
+  category: "all" | "equip" | "pluri" | "uni" | null;
   thumbnail: {
     asset?: {
       _ref: string;
@@ -1019,7 +1166,7 @@ export type GetProjectsGridQueryResult = Array<{
 export type GetSingleProjectQueryResult = {
   title: string;
   slug: Slug;
-  projectNumber: null;
+  projectNumber: string | null;
   builder: Array<{
     _key: string;
     _type: "coverImage";
@@ -1211,12 +1358,44 @@ export type GetSingleProjectQueryResult = {
   }> | null;
 } | null;
 // Variable: settingsQuery
-// Query: *[_type == "settings"][0]{    siteTitle,    logo,    navLinks,    languages  }
+// Query: *[_type == "settings"][0]{    siteTitle,    description,    logo,    navLinks,    languages  }
 export type SettingsQueryResult = {
-  siteTitle: null;
-  logo: null;
-  navLinks: null;
-  languages: null;
+  siteTitle: string | null;
+  description: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "normal";
+    listItem?: never;
+    markDefs?: Array<{
+      href: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }> | null;
+  logo: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  } | null;
+  navLinks: Array<{
+    label?: string;
+    href?: string;
+    _key: string;
+  }> | null;
+  languages: Array<string> | null;
 } | null;
 
 // Query TypeMap
@@ -1224,8 +1403,8 @@ import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
     "\n  *[_type == \"about\"][0]{\n    aboutText,\n    contact {\n      titleTranslations,\n      email,\n      phone\n    },\n    office {\n      titleTranslations,\n      address,\n      addressUrl\n    },\n    social {\n      instagram\n    },\n    team {\n      titleTranslations,\n      coFounders[]{\n        name,\n        role\n      },\n      teammates[]{\n        name\n      },\n      teammatesTitleTranslations,\n      pastTeammates[]{\n        name\n      },\n      pastTeammatesTitleTranslations\n    },\n    aboutInfo\n  }\n": GetAboutPageQueryResult;
-    "\n  *[_type == \"project\"] | order(projectNumber asc) {\n    title,\n    slug,\n    projectNumber,\n    thumbnail,\n    \"projectInfo\": builder[_type == \"projectInfo\"][0]{\n      year,\n      location,\n      program,\n      area\n    }\n  }\n": GetProjectsGridQueryResult;
+    "\n  *[_type == \"project\"] | order(projectNumber asc) {\n    title,\n    slug,\n    projectNumber,\n    category, // \u2190 ADD THIS\n    thumbnail,\n    \"projectInfo\": builder[_type == \"projectInfo\"][0]{\n      year,\n      location,\n      program,\n      area\n    }\n  }\n": GetProjectsGridQueryResult;
     "\n  *[_type == \"project\" && slug.current == $slug][0]{\n    title,\n    slug,\n    projectNumber,\n    builder[]{\n      // Your dynamic sections like images, text, etc\n      ...\n    }\n  }\n": GetSingleProjectQueryResult;
-    "\n  *[_type == \"settings\"][0]{\n    siteTitle,\n    logo,\n    navLinks,\n    languages\n  }\n": SettingsQueryResult;
+    "\n  *[_type == \"settings\"][0]{\n    siteTitle,\n    description,\n    logo,\n    navLinks,\n    languages\n  }\n": SettingsQueryResult;
   }
 }

@@ -1,45 +1,92 @@
-import { client } from "@/sanity/lib/client";
-import { urlForImage } from "@/sanity/lib/utils";
+"use client";
+
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { client } from "@/sanity/lib/client";
 import { getHomepageQuery } from "@/sanity/lib/queries";
+import { urlForImage } from "@/sanity/lib/utils";
 
-export default async function HomePage() {
-  const homepage = await client.fetch(getHomepageQuery);
-  const projects = homepage?.featuredProjects || [];
+export default function HomePageWrapper() {
+  const [projects, setProjects] = useState<any[]>([]);
+  const [currentSlug, setCurrentSlug] = useState<string | null>(null);
+  const [hoveredSlug, setHoveredSlug] = useState<string | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    async function fetchProjects() {
+      const homepage = await client.fetch(getHomepageQuery);
+      setProjects(homepage?.featuredProjects || []);
+    }
+
+    fetchProjects();
+  }, []);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries.find((entry) => entry.isIntersecting);
+        if (visible?.target) {
+          const slug = visible.target.getAttribute("data-slug");
+          if (slug) setCurrentSlug(slug);
+        }
+      },
+      {
+        root: containerRef.current,
+        threshold: 0.6, // More than half visible
+      }
+    );
+
+    const elements = containerRef.current?.querySelectorAll("[data-slug]");
+    elements?.forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, [projects]);
 
   if (!projects.length) {
     return <div>No featured projects</div>;
   }
 
   return (
-    <section className="w-full overflow-x-auto whitespace-nowrap pb-12">
-      <div className="flex">
-        {projects.map((project: any) => {
-          const imageUrl = project.thumbnail
-            ? urlForImage(project.thumbnail)?.url()
+    <section className="w-full overflow-x-auto pb-12">
+      <div
+        className="flex items-end snap-x snap-mandatory overflow-x-auto scrollbar-hide"
+        ref={containerRef}
+      >
+        {projects.map((project) => {
+          const imageUrl = project.featuredImage
+            ? urlForImage(project.featuredImage)?.url()
             : null;
+          const slug = project.slug?.current;
 
-          if (!project.slug?.current || !imageUrl) return null;
+          if (!slug || !imageUrl) return null;
+
+          const isFocused = hoveredSlug === slug || currentSlug === slug;
 
           return (
             <Link
-              href={`/projects/${project.slug.current}`}
-              key={project.slug.current}
-              className="flex-shrink-0 w-[80vw] sm:w-[60vw] md:w-[40vw] xl:w-[30vw]"
+              href={`/projects/${slug}`}
+              key={slug}
+              data-slug={slug}
+              onMouseEnter={() => setHoveredSlug(slug)}
+              onMouseLeave={() => setHoveredSlug(null)}
+              className="snap-center flex-shrink-0 flex flex-col items-start transition-opacity duration-300"
+              style={{
+                opacity: isFocused ? 1 : 0.2,
+              }}
             >
-              <div className="relative w-full aspect-[4/5] overflow-hidden">
+              <div className="h-[85vh] w-auto relative">
                 <Image
                   src={imageUrl}
                   alt={project.title}
-                  fill
-                  className="object-cover transition-transform duration-300 hover:scale-105"
-                  sizes="(max-width: 768px) 80vw, (max-width: 1200px) 60vw, 30vw"
+                  width={1000}
+                  height={1500}
+                  className="h-[85vh] w-auto object-cover"
+                  unoptimized
                 />
               </div>
-
-              <div className="mt-2 text-sm font-medium leading-tight flex">
-                <div className="pr-4">{project.projectNumber}</div>
+              <div className="mt-2 text-sm pl-4 font-medium leading-tight flex">
+                <div className="pr-3">{project.projectNumber}</div>
                 <div>{project.title}</div>
               </div>
             </Link>

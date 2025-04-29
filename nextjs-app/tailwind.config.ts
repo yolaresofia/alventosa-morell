@@ -107,5 +107,5 @@ export default {
   future: {
     hoverOnlyWhenSupported: true,
   },
-  plugins: [typography],
+  plugins: [typography, require("tailwind-scrollbar-hide")],
 } satisfies Config;

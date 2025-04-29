@@ -8,7 +8,6 @@ import { DiptychImage } from "./DiptychImage";
 import { ImageCarousel } from "./ImageCarousel";
 import { TextBlock } from "./TextBlock";
 import { ProjectInfo } from "./ProjectInfo";
-import { ProjectsViews } from "./ProjectViews";
 
 type BlocksType = {
   [key: string]: React.FC<any>;
@@ -34,7 +33,6 @@ const Blocks: BlocksType = {
   imageCarousel: ImageCarousel,
   textBlock: TextBlock,
   projectInfo: ProjectInfo,
-  projectViews: ProjectsViews
 };
 
 export default function BlockRenderer({

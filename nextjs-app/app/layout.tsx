@@ -13,6 +13,7 @@ import Link from "next/link";
 import Image from "next/image";
 import LanguageSwitcher from "./components/LanguageSwitcher";
 import NavLinks from "./components/NavLinks";
+import MobileNav from "./components/MobileNav";
 
 export async function generateMetadata(): Promise<Metadata> {
   const { data: settings } = await sanityFetch({
@@ -78,21 +79,17 @@ export default async function RootLayout({
                     alt="Alventosa Morell Arquitectes"
                     width={75}
                     height={16}
-                    className="object-contain h-5 w-auto"
+                    className="object-contain h-5 w-auto mix-blend-overlay z-50"
                     priority
                     unoptimized
                   />
                 </Link>
               </div>
             )}
+
             <NavLinks navLinks={navLinks} />
-            <nav className="md:hidden flex items-center fixed top-4 right-4 z-40">
-              <div className="space-y-1 cursor-pointer">
-                <div className="w-6 h-[2px] bg-black"></div>
-                <div className="w-6 h-[2px] bg-black"></div>
-              </div>
-            </nav>
-            <LanguageSwitcher languages={languages} />
+            <MobileNav navLinks={navLinks} languages={languages} />
+
             <main className="min-h-screen flex flex-col">{children}</main>
           </MotionLayout>
 

@@ -4,23 +4,20 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { urlForImage } from "@/sanity/lib/utils";
-
-type Project = {
-  title: string;
-  slug: { current: string };
-  projectNumber?: string | null;
-  thumbnail?: any;
-  category?: string | null;
-};
+import { GetProjectsGridQueryResult } from "@/sanity.types";
 
 const categories = [
-    { label: "Tots", value: "all" },
-    { label: "Unifamiliar", value: "uni" },
-    { label: "Plurifamiliar", value: "pluri" },
-    { label: "Equipaments", value: "equip" },
-  ];
+  { label: "Tots", value: "all" },
+  { label: "Unifamiliar", value: "uni" },
+  { label: "Plurifamiliar", value: "pluri" },
+  { label: "Equipaments", value: "equip" },
+];
 
-export function ProjectsGrid({ projects }: { projects: Project[] }) {
+export function ProjectsGrid({
+  projects,
+}: {
+  projects: GetProjectsGridQueryResult;
+}) {
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [hoveredSlug, setHoveredSlug] = useState<string | null>(null);
 
@@ -31,7 +28,7 @@ export function ProjectsGrid({ projects }: { projects: Project[] }) {
 
   return (
     <section className="relative w-full min-h-screen px-12 pt-24">
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-12">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-x-12 gap-y-16">
         {filteredProjects.map((project) => {
           const imageUrl = project.thumbnail
             ? urlForImage(project.thumbnail)?.url()
@@ -49,7 +46,7 @@ export function ProjectsGrid({ projects }: { projects: Project[] }) {
             >
               <div
                 className={`relative w-full aspect-[4/5] transition-opacity duration-300 ${
-                  isHovered ? "opacity-100" : "opacity-20"
+                  isHovered ? "lg:opacity-100" : "lg:opacity-20"
                 }`}
               >
                 {imageUrl && (
@@ -63,7 +60,7 @@ export function ProjectsGrid({ projects }: { projects: Project[] }) {
               </div>
               <div
                 className={`mt-2 text-sm font-medium leading-tight flex gap-2 transition-opacity duration-300 ${
-                  isHovered ? "opacity-100" : "opacity-20"
+                  isHovered ? "lg:opacity-100" : "lg:opacity-20"
                 }`}
               >
                 <div>{project.projectNumber || "-"}</div>
@@ -73,6 +70,7 @@ export function ProjectsGrid({ projects }: { projects: Project[] }) {
           );
         })}
       </div>
+
       <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 flex items-center gap-0.5 z-50">
         {categories.map((cat, idx) => (
           <span key={cat.value} className="flex items-center">
@@ -86,7 +84,7 @@ export function ProjectsGrid({ projects }: { projects: Project[] }) {
             >
               {cat.label}
             </button>
-            {idx < categories.length - 1 && <span>, </span>}
+            {idx < categories.length - 1 && <span>,</span>}
           </span>
         ))}
       </div>
